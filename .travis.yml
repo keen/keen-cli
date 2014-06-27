@@ -1,12 +1,12 @@
 language: ruby
 bundler_args: --without development
-
 rvm:
-  - 2.1.0
-
+- 2.1.0
 env:
-  secure: ""
-
+  global:
+    - secure: dyzAKPD91LvwtjcX0mo4ENPhpjCgtkrS1Z5mgodYHafMz+GBTrMLdwnA/jE2EnzUhVcTieuAvIsYP7sGsG43qxtYNIl7FMXdz1PywgQVZuPbmNV6Y2iBaU61TlQvR1rtLA+G4N8TOxdVQxThpYlNv1rNHGSqtgOOICMNZLTY224=
+    - secure: SAfN4kwEsqEBSSr8Fr2h2ySxFz7P+6rgysgEjF24fL6JW5N+YmKmwHh1en81d4R+BYcYIMQRwe1owpyqisvx0kASUVnWdPT0+loHm5rH22IEFsYjTEiuYOAZCj1/4yLcVmdX6EH34cNmoGbxUUziD9k9ctVGoehxaK9te+xphvc=
+    - secure: k2owfccj86F/b7X/WRsi8HGdJ9v+zuDek/Vu7XzNN+fqqja4rlXTtWSJyOTikklOMRN0AlUh1GjRWp+eT8YXKdiN4gk7WUGiryaTGATKWn1nLaIDtEjugMMmqXq7YwCih1GulPhMlRSwHU4b9q/MsciTFwzxREsxecjrQYL8HQY=
+    - secure: PXsUN/cmCwMbBjkJ6HLdWPmOEtk6+G1HMP5RhejImbUII7MJ1GRhHdehMCgc74wNfVt/MX/de2AgB17EQc5tDSKoQqV9dCZ4cRDPjlh82MK3gN1L2ZUgD+wJeY/29bZak6NMnVXVN18HGfIMjCVnS3t2rkQ94nwZVtIuhCkAWRk=
 script:
-  - bundle exec rake spec
-
+- bundle exec rake spec

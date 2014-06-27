@@ -14,7 +14,7 @@ describe KeenCli::CLI do
   describe 'project:show' do
     it 'gets the project' do
       _, options = KeenCli::CLI.start(%w[project:show])
-      expect(_).to match /\/3.0\/projects\/50e8d5f43843316b28000001\/events/
+      expect(_).to match /\/3.0\/projects\/#{Keen.project_id}\/events/
     end
   end
 end
