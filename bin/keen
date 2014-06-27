@@ -1,0 +1,6 @@
+#!/usr/bin/env ruby
+
+require 'keen-cli'
+require 'keen-cli/cli'
+
+KeenCli::CLI.start

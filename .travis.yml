@@ -1,0 +1,12 @@
+language: ruby
+bundler_args: --without development
+
+rvm:
+  - 2.1.0
+
+env:
+  secure: ""
+
+script:
+  - bundle exec rake spec
+
