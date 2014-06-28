@@ -69,9 +69,101 @@ $ keen project:show -p XXXXXXXXXXXXXXX -k AAAAAAAAAAAAAA
 keen-cli has a variety of commands, and most are namespaced for clarity.
 
 * `version` - Print version information
+
+##### Projects
+
 * `project:open` - Open the Project Overview page in a browser
 * `project:show` - Get data about the project, uses the [project row resource](https://keen.io/docs/api/reference/#project-row-resource).
 
+##### Events
+
+`events:add` - Add an event.
+
+Parameters:
+
++ `--collection` (alias `-c`): The collection to add the event to. Alternately you can set `KEEN_COLLECTION_NAME` on the environment if you're working with the same collection frequently.
++ `--data` (alias `-d`). The properties of the event. The value can be JSON or key=value pairs delimited by & (just like a query string). Data can also be piped in via STDIN.
+
+Various examples:
+
+``` shell
+# create an empty event
+$ keen events:add --collection cli-tests
+
+# use the shorter form of collection
+$ keen events:add -c cli-tests
+
+# add a blank event to a collection specified in the .env file:
+# KEEN_COLLECTION_NAME=cli-tests
+$ keen events:add
+
+# create an event from JSON
+$ keen events:add -c cli-tests -d "{ \"username\" : \"dzello\", \"zsh\": 1 }"
+
+# create an event from key value pairs
+$ keen events:add -c cli-tests -d "username=dzello&zsh=1"
+
+# pipe in events as JSON
+$ echo "{ \"username\" : \"dzello\", \"zsh\": 1 }" | keen events:add -c cli-tests
+
+# pipe in events in querystring format
+$ echo "username=dzello&zsh=1" | keen events:add -c cli-test
+
+# pipe in events from a file of newline delimited json
+# { "username" : "dzello", "zsh" : 1 }
+# { "username" : "dkador", "zsh" : 1 }
+# { "username" : "gphat", "zsh" : 1 }
+$ cat events.json | keen events:add -c cli-test
+```
+
+##### Queries
+
+`queries:run` - Runs a query and prints the result in pretty JSON.
+
+Parameters:
+
++ `--collection` (alias -c) – The collection name to query against. Can also be set on the environment via `KEEN_COLLECTION_NAME`
++ `--analysis-type` (alias -a)
++ `--group-by` (alias -g)
++ `--target-property` (alias -y)
++ `--timeframe` (alias -t)
++ `--interval` (alias -i)
++ `--filters` (alias -f)
++ `--percentile`
+
+Some examples:
+
+``` shell
+# run a count
+$ keen queries:run -a count -c cli-tests
+
+# run a count with collection name from .env
+# KEEN_COLLECTION_NAME=cli-tests
+$ keen queries:run -a count
+1000
+
+# run a count with a group by
+$ keen queries:run -a count -g a
+[
+  {
+    "a": 1,
+    "result": 1000
+  }
+]
+
+# run a query with a timeframe, target property, group by, and interval
+$ keen queries:run -c cli-tests --analysis-type median --target-property value --group-by cohort --timeframe last_24_hours --interval hourly
+
+{
+  "timeframe": {
+    "start": "2014-06-27T01:00:00.000Z",
+    "end": "2014-06-27T02:00:00.000Z"
+  },
+  "value": [
+  ...
+  ...
+  ...
+```
 
 ### Contributing
 

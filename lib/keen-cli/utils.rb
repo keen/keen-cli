@@ -24,6 +24,24 @@ module KeenCli
 
       end
 
+      def get_collection_name(options)
+        options["collection"] || ENV['KEEN_COLLECTION_NAME']
+      end
+
+      def parse_data_as_querystring(query)
+        keyvals = query.split('&').inject({}) do |result, q| 
+          k,v = q.split('=')
+          if !v.nil?
+             result.merge({k => v})
+          elsif !result.key?(k)
+            result.merge({k => true})
+          else
+            result
+          end
+        end
+        keyvals
+      end
+
     end
 
   end
