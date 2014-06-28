@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    keen-cli (0.1.0)
+    keen-cli (0.1.1)
       dotenv
       http
       keen
