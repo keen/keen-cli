@@ -135,24 +135,25 @@ Some examples:
 
 ``` shell
 # run a count
-$ keen queries:run -a count -c cli-tests
+$ keen queries:run --collection cli-tests --analysis-type count
+1000
 
 # run a count with collection name from .env
 # KEEN_COLLECTION_NAME=cli-tests
-$ keen queries:run -a count
+$ keen queries:run --analysis-type count
 1000
 
 # run a count with a group by
-$ keen queries:run -a count -g a
+$ keen queries:run --collection cli-tests --analysis-type count --group-by username
 [
   {
-    "a": 1,
+    "username": "dzello",
     "result": 1000
   }
 ]
 
 # run a query with a timeframe, target property, group by, and interval
-$ keen queries:run -c cli-tests --analysis-type median --target-property value --group-by cohort --timeframe last_24_hours --interval hourly
+$ keen queries:run --collection cli-tests --analysis-type median --target-property value --group-by cohort --timeframe last_24_hours --interval hourly
 
 {
   "timeframe": {
