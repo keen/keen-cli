@@ -76,7 +76,8 @@ keen-cli has a variety of commands, and most are namespaced for clarity.
 
 * `project:open` - Open the Project Overview page in a browser
 * `project:workbench` - Open the Project Workbench in a browser
-* `project:show` - Get data about the project, uses the [project row resource](https://keen.io/docs/api/reference/#project-row-resource).
+* `project:show` - Get data about the project. Uses the [project row resource](https://keen.io/docs/api/reference/#project-row-resource).
+* `project:collections` - Get the project collections and schema. Uses the [event resource](https://keen.io/docs/api/reference/#event-resource).
 
 ##### Events
 
@@ -168,6 +169,11 @@ $ keen queries:run --collection cli-tests --analysis-type median --target-proper
   ...
   ...
 ```
+
+### Changelog
+
++ 0.1.1 – Add `project:collections`
++ 0.1.0 - Initial version
 
 ### Contributing
 
