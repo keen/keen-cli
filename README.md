@@ -19,9 +19,11 @@ Verify the `keen` command is in your path by running it:
 ``` shell
 $ keen
 Commands:
+  keen events:add      # Add an event
   keen help [COMMAND]  # Describe available commands or one specific command
   keen project:open    # Open the current project
   keen project:show    # Show the current project
+  keen queries:run     # Run a query
   keen version         # Print the keen-cli version
 ```
 
