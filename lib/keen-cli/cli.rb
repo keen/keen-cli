@@ -55,6 +55,17 @@ module KeenCli
       JSON.pretty_generate(JSON.parse(response.to_s)).tap do |s| puts s end
     end
 
+    desc 'project:collections', 'Show the current project\'s collections'
+    map 'project:collections' => :project_collections
+    shared_options
+
+    def project_collections
+      Utils.process_options!(options)
+      Keen.event_collections.tap do |collections|
+        puts JSON.pretty_generate(collections)
+      end
+    end
+
     desc 'project:open', 'Open the current project'
     map 'project:open' => :project_open
     shared_options
