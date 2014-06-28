@@ -66,6 +66,17 @@ module KeenCli
       end
     end
 
+    desc 'project:workbench', 'Open the current project\'s workbench'
+    map 'project:workbench' => :project_workbench
+    shared_options
+
+    def project_workbench
+      Utils.process_options!(options)
+      "https://keen.io/project/#{Keen.project_id}/workbench".tap do |project_url|
+        `open #{project_url}`
+      end
+    end
+
     desc 'queries:run', 'Run a query'
     map 'queries:run' => :queries_run
     shared_options

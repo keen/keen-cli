@@ -17,14 +17,14 @@ $ gem install keen-cli
 Verify the `keen` command is in your path by running it:
 
 ``` shell
-$ keen
 Commands:
-  keen events:add      # Add an event
-  keen help [COMMAND]  # Describe available commands or one specific command
-  keen project:open    # Open the current project
-  keen project:show    # Show the current project
-  keen queries:run     # Run a query
-  keen version         # Print the keen-cli version
+  keen events:add         # Add an event
+  keen help [COMMAND]     # Describe available commands or one specific command
+  keen project:open       # Open the current project
+  keen project:show       # Show the current project
+  keen project:workbench  # Open the current project's workbench
+  keen queries:run        # Run a query
+  keen version            # Print the keen-cli version
 ```
 
 You should see information about available commands.
@@ -75,6 +75,7 @@ keen-cli has a variety of commands, and most are namespaced for clarity.
 ##### Projects
 
 * `project:open` - Open the Project Overview page in a browser
+* `project:workbench` - Open the Project Workbench in a browser
 * `project:show` - Get data about the project, uses the [project row resource](https://keen.io/docs/api/reference/#project-row-resource).
 
 ##### Events
