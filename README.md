@@ -18,13 +18,14 @@ Verify the `keen` command is in your path by running it:
 
 ``` shell
 Commands:
-  keen events:add         # Add an event
-  keen help [COMMAND]     # Describe available commands or one specific command
-  keen project:open       # Open the current project
-  keen project:show       # Show the current project
-  keen project:workbench  # Open the current project's workbench
-  keen queries:run        # Run a query
-  keen version            # Print the keen-cli version
+  keen events:add           # Add an event
+  keen help [COMMAND]       # Describe available commands or one specific command
+  keen project:collections  # Show the current project's collections
+  keen project:open         # Open the current project
+  keen project:show         # Show the current project
+  keen project:workbench    # Open the current project's workbench
+  keen queries:run          # Run a query
+  keen version              # Print the keen-cli version
 ```
 
 You should see information about available commands.
@@ -77,7 +78,7 @@ keen-cli has a variety of commands, and most are namespaced for clarity.
 * `project:open` - Open the Project Overview page in a browser
 * `project:workbench` - Open the Project Workbench in a browser
 * `project:show` - Get data about the project. Uses the [project row resource](https://keen.io/docs/api/reference/#project-row-resource).
-* `project:collections` - Get the project collections and schema. Uses the [event resource](https://keen.io/docs/api/reference/#event-resource).
+* `project:collections` - Get schema information about the project's collections. Uses the [event resource](https://keen.io/docs/api/reference/#event-resource).
 
 ##### Events
 
