@@ -44,18 +44,18 @@ module KeenCli
       end
     end
 
-    desc 'project:show', 'Show the current project'
-    map 'project:show' => :project_show
+    desc 'project:describe', 'Print information about a project'
+    map 'project:describe' => :project_describe
     shared_options
 
-    def project_show
+    def project_describe
       Utils.process_options!(options)
       response = HTTP.get(
         "https://api.keen.io/3.0/projects/#{Keen.project_id}?api_key=#{Keen.master_key}")
       JSON.pretty_generate(JSON.parse(response.to_s)).tap do |s| puts s end
     end
 
-    desc 'project:collections', 'Show the current project\'s collections'
+    desc 'project:collections', 'Print information about a project\'s collections'
     map 'project:collections' => :project_collections
     shared_options
 
@@ -66,7 +66,7 @@ module KeenCli
       end
     end
 
-    desc 'project:open', 'Open the current project'
+    desc 'project:open', 'Open a project\'s overview page in a browser'
     map 'project:open' => :project_open
     shared_options
 
@@ -77,7 +77,7 @@ module KeenCli
       end
     end
 
-    desc 'project:workbench', 'Open the current project\'s workbench'
+    desc 'project:workbench', 'Open a project\'s workbench page in a browser'
     map 'project:workbench' => :project_workbench
     shared_options
 
@@ -88,7 +88,7 @@ module KeenCli
       end
     end
 
-    desc 'queries:run', 'Run a query'
+    desc 'queries:run', 'Run a query and print the result'
     map 'queries:run' => :queries_run
     shared_options
     query_options
@@ -117,7 +117,7 @@ module KeenCli
       end
     end
 
-    desc 'events:add', 'Add an event'
+    desc 'events:add', 'Add one or more events and print the result'
     map 'events:add' => :events_add
 
     shared_options

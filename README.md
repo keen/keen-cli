@@ -18,13 +18,13 @@ Verify the `keen` command is in your path by running it:
 
 ``` shell
 Commands:
-  keen events:add           # Add an event
+  keen events:add           # Add one or more events and print the result
   keen help [COMMAND]       # Describe available commands or one specific command
-  keen project:collections  # Show the current project's collections
-  keen project:open         # Open the current project
-  keen project:show         # Show the current project
-  keen project:workbench    # Open the current project's workbench
-  keen queries:run          # Run a query
+  keen project:collections  # Print information about a project's collections
+  keen project:describe     # Print information about a project
+  keen project:open         # Open a project's overview page in a browser
+  keen project:workbench    # Open a project's workbench page in a browser
+  keen queries:run          # Run a query and print the result
   keen version              # Print the keen-cli version
 ```
 
@@ -50,7 +50,7 @@ If you run `keen` from a directory with this .env file, it will assume the proje
 To override the project context use the `--project` option:
 
 ``` shell
-$ keen project:show --project XXXXXXXXXXXXXXX
+$ keen project:describe --project XXXXXXXXXXXXXXX
 ```
 
 Similar overrides are available for specifiying API keys: `--master-key`, `--read-key` and `--write-key`.
@@ -58,13 +58,13 @@ Similar overrides are available for specifiying API keys: `--master-key`, `--rea
 For example:
 
 ``` shell
-$ keen project:show --project XXXXXXXXXXXXXXX --master-key AAAAAAAAAAAAAA
+$ keen project:describe --project XXXXXXXXXXXXXXX --master-key AAAAAAAAAAAAAA
 ```
 
 Shorter aliases exist as well: `-p` for project, `-k` for master key, `-r` for read key, and `-w` for write key.
 
 ``` shell
-$ keen project:show -p XXXXXXXXXXXXXXX -k AAAAAAAAAAAAAA
+$ keen project:describe -p XXXXXXXXXXXXXXX -k AAAAAAAAAAAAAA
 ```
 
 ### Usage
@@ -76,8 +76,8 @@ keen-cli has a variety of commands, and most are namespaced for clarity.
 ##### Projects
 
 * `project:open` - Open the Project Overview page in a browser
-* `project:workbench` - Open the Project Workbench in a browser
-* `project:show` - Get data about the project. Uses the [project row resource](https://keen.io/docs/api/reference/#project-row-resource).
+* `project:workbench` - Open the Project Workbench page in a browser
+* `project:describe` - Get data about the project. Uses the [project row resource](https://keen.io/docs/api/reference/#project-row-resource).
 * `project:collections` - Get schema information about the project's collections. Uses the [event resource](https://keen.io/docs/api/reference/#event-resource).
 
 ##### Events
