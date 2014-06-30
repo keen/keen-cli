@@ -34,7 +34,7 @@ If `keen` can't be found there might be an issue with your Ruby installation. If
 
 ### Environment configuration
 
-Most keen-cli functions require the presence of a project and one or more API keys to do meaningful actions. By default, keen-cli attempts to find these in the process environment or a `.env` file in the current directory. This is the same heuristic that [keen-gem](https://github.com/keenlabs/keen-gem) uses.
+Most keen-cli commands require the presence of a project and one or more API keys to do meaningful actions. By default, keen-cli attempts to find these in the process environment or a `.env` file in the current directory. This is the same heuristic that [keen-gem](https://github.com/keenlabs/keen-gem) uses and is based on [dotenv](https://github.com/bkeepers/dotenv).
 
 An example .env file looks like this:
 
