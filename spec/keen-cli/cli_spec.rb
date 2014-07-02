@@ -17,4 +17,11 @@ describe KeenCli::CLI do
       expect(_).to match /\/3.0\/projects\/#{Keen.project_id}\/events/
     end
   end
+
+  describe 'project:collections' do
+    it 'prints the project\'s collections' do
+      _, options = KeenCli::CLI.start(%w[project:collections])
+      expect(_["properties"]["keen.timestamp"]).to eq 'datetime'
+    end
+  end
 end
