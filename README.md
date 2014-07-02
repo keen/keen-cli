@@ -173,6 +173,7 @@ $ keen queries:run --collection cli-tests --analysis-type median --target-proper
 
 ### Changelog
 
++ 0.1.2 – Change `project:show` to `project:describe`
 + 0.1.1 – Add `project:collections`
 + 0.1.0 - Initial version
 
