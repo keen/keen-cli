@@ -1,4 +1,3 @@
-require 'http'
 require 'thor'
 require 'keen'
 require 'json'
@@ -50,9 +49,9 @@ module KeenCli
 
     def project_describe
       Utils.process_options!(options)
-      response = HTTP.get(
-        "https://api.keen.io/3.0/projects/#{Keen.project_id}?api_key=#{Keen.master_key}")
-      JSON.pretty_generate(JSON.parse(response.to_s)).tap do |s| puts s end
+      Keen.project_info.tap do |info|
+        puts JSON.pretty_generate(info)
+      end
     end
 
     desc 'project:collections', 'Print information about a project\'s collections'
@@ -107,8 +106,9 @@ module KeenCli
       end
 
       collection = Utils.get_collection_name(options)
+      q_options.delete("collection")
 
-      Keen.send(q_options["analysis_type"], collection, q_options).tap do |result|
+      Keen.send(q_options.delete("analysis_type"), collection, q_options).tap do |result|
         if result.is_a?(Hash) || result.is_a?(Array)
           puts JSON.pretty_generate(result)
         else

@@ -1,4 +1,5 @@
 require 'rspec'
+require 'webmock/rspec'
 
 require File.expand_path("../../lib/keen-cli", __FILE__)
 

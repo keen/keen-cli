@@ -12,14 +12,14 @@ Gem::Specification.new do |s|
   s.description = "Record events and run queries from the comfort of your command line"
   s.license     = "MIT"
 
-  s.add_dependency "keen"
+  s.add_dependency "keen", ">= 0.8.4"
   s.add_dependency "thor"
   s.add_dependency "dotenv"
-  s.add_dependency "http"
 
   s.add_development_dependency 'rake'
   s.add_development_dependency 'rspec'
   s.add_development_dependency 'debugger'
+  s.add_development_dependency 'webmock'
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
