@@ -53,5 +53,12 @@ describe KeenCli::CLI do
       _, options = start 'queries:run --analysis-type count --collection minecraft-deaths'
       expect(_).to eq(10)
     end
+
+    it 'runs the query using aliased params' do
+      url = "https://api.keen.io/3.0/projects/#{project_id}/queries/count?event_collection=minecraft-deaths"
+      stub_request(:get, url).to_return(:body => { :result => 10 }.to_json)
+      _, options = start 'queries:run -a count -c minecraft-deaths'
+      expect(_).to eq(10)
+    end
   end
 end
