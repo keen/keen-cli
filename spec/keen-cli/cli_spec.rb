@@ -12,10 +12,10 @@ describe KeenCli::CLI do
   end
 
   before do
-    ENV['KEEN_PROJECT_ID'] = project_id
-    ENV['KEEN_MASTER_KEY'] = master_key
-    ENV['KEEN_READ_KEY'] = read_key
-    ENV['KEEN_WRITE_KEY'] = write_key
+    Keen.project_id = project_id
+    Keen.read_key = read_key
+    Keen.write_key = write_key
+    Keen.master_key = master_key
   end
 
   it 'prints help by default' do
@@ -35,6 +35,13 @@ describe KeenCli::CLI do
       _, options = start 'project:describe'
       expect(_).to eq("fake" => "response")
     end
+
+    it 'uses the project id param if present' do
+      url = "https://api.keen.io/3.0/projects/GGGG"
+      stub_request(:get, url).to_return(:body => { :fake => "response" }.to_json)
+      _, options = start 'project:describe --project GGGG'
+      expect(_).to eq("fake" => "response")
+    end
   end
 
   describe 'project:collections' do
@@ -42,6 +49,13 @@ describe KeenCli::CLI do
       url = "https://api.keen.io/3.0/projects/#{project_id}/events"
       stub_request(:get, url).to_return(:body => { :fake => "response" }.to_json)
       _, options = start 'project:collections'
+      expect(_).to eq("fake" => "response")
+    end
+
+    it 'uses the project id param if present' do
+      url = "https://api.keen.io/3.0/projects/GGGG/events"
+      stub_request(:get, url).to_return(:body => { :fake => "response" }.to_json)
+      _, options = start 'project:collections --project GGGG'
       expect(_).to eq("fake" => "response")
     end
   end
