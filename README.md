@@ -218,7 +218,7 @@ Run `keen` with no arguments to see the full list of aliases.
 
 ### Changelog
 
-+ 0.1.3 – Add querying via JSON. Add query aliases.
++ 0.1.3 – Add querying via JSON. Add query aliases. Add support for extraction fields.
 + 0.1.2 – Change `project:show` to `project:describe`
 + 0.1.1 – Add `project:collections`
 + 0.1.0 - Initial version
