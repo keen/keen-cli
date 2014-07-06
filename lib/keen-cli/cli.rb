@@ -32,6 +32,9 @@ module KeenCli
       option :timeframe, :aliases => ['-t']
       option :filters, :aliases => ['-f']
       option :percentile
+      option :"property-names"
+      option :latest
+      option :email
     end
 
     desc 'version', 'Print the keen-cli version'
@@ -118,7 +121,7 @@ module KeenCli
 
       # convert dashes to underscores, and merge all into q_options
       q_options.merge!(options.inject({}) do |memo, element|
-        if ['analysis-type', 'group-by', 'target-property'].include?(element.first)
+        if ['analysis-type', 'group-by', 'target-property', 'property-names'].include?(element.first)
           memo[element.first.sub('-', '_')] = element.last
         else
           memo[element.first] = element.last
@@ -134,6 +137,10 @@ module KeenCli
       q_options.delete("event_collection")
       q_options.delete("data")
       q_options.delete("analysis_type")
+
+      if property_names = q_options.delete("property_names")
+        q_options[:property_names] = property_names.split(",")
+      end
 
       raise "No analysis type given!" unless analysis_type
       raise "No collection given!" unless collection

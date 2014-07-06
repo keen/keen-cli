@@ -145,6 +145,9 @@ Parameters:
 + `--interval` (alias -i)
 + `--filters` (alias -f)
 + `--percentile`
++ `--property-names` - A comma-separated list of property names. Extractions only.
++ `--latest` - Number of latest events to retrieve. Extractions only.
++ `--email` - Send extraction results via email, asynchronously. Extractions only.
 + `--data` (alias -d) - Specify query parameters as JSON instead of query params. Data can also be piped in via STDIN.
 
 Some examples:
@@ -180,6 +183,19 @@ $ keen queries:run --collection cli-tests --analysis-type median --target-proper
   ...
   ...
   ...
+
+# run an extraction with specific property names
+$ keen queries:run --collection minecraft-deaths --analysis-type extraction --property-names player,enemy
+[
+  {
+    "player": "dzello",
+    "enemy": "creeper"
+  },
+  {
+    "player": "dkador",
+    "enemy": "creeper"
+  }
+]
 
 # run a query using JSON to specify parameters
 $ echo "{ \"event_collection\" : \"minecraft-deaths\", \"target_property\": \"level\" }" | keen queries:run -a average

@@ -82,6 +82,21 @@ describe KeenCli::CLI do
       expect(_).to eq(10)
     end
 
+    it 'accepts extraction-specific properties' do
+      url = "https://api.keen.io/3.0/projects/#{project_id}/queries/extraction?event_collection=minecraft-deaths&property_names=%5B%22foo%22,%22bar%22%5D&latest=1&email=bob@bob.io"
+      stub_request(:get, url).to_return(:body => { :result => 10 }.to_json)
+      _, options = start 'queries:run --analysis-type extraction --collection minecraft-deaths --property-names foo,bar --latest 1 --email bob@bob.io'
+      expect(_).to eq(10)
+    end
+
+    it 'converts comma-delimited property names to an array' do
+      url = "https://api.keen.io/3.0/projects/#{project_id}/queries/extraction?event_collection=minecraft-deaths&property_names=%5B%22foo%22,%22bar%22%5D"
+      stub_request(:get, url).to_return(:body => { :result => 10 }.to_json)
+      _, options = start 'queries:run --analysis-type extraction --collection minecraft-deaths --property-names foo,bar'
+      expect(_).to eq(10)
+    end
+
+
     it 'uses a data option to take in query JSON' do
       url = "https://api.keen.io/3.0/projects/#{project_id}/queries/count?event_collection=minecraft-deaths"
       stub_request(:get, url).to_return(:body => { :result => 10 }.to_json)
