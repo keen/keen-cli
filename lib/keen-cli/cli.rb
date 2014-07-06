@@ -92,7 +92,7 @@ module KeenCli
     shared_options
     query_options
     data_options
-    def queries_run
+    def queries_run(analysis_type=nil)
 
       Utils.process_options!(options)
 
@@ -127,13 +127,16 @@ module KeenCli
       end)
 
       collection = Utils.get_collection_name(q_options)
-      analysis_type = q_options["analysis_type"]
+      analysis_type = analysis_type || q_options["analysis_type"]
 
       # delete fields that shouldn't be passed to keen-gem as options
       q_options.delete("collection")
       q_options.delete("event_collection")
       q_options.delete("data")
       q_options.delete("analysis_type")
+
+      raise "No analysis type given!" unless analysis_type
+      raise "No collection given!" unless collection
 
       Keen.send(analysis_type, collection, q_options).tap do |result|
         if result.is_a?(Hash) || result.is_a?(Array)
@@ -142,6 +145,18 @@ module KeenCli
           puts result
         end
       end
+    end
+
+    ANALYSIS_TYPES = %w(average count count-unique extraction median minimum maximum sum percentile select-unique)
+
+    ANALYSIS_TYPES.each do |analysis_type|
+      underscored_analysis_type = analysis_type.sub('-', '_')
+      desc analysis_type, "Alias for queries:run -c #{underscored_analysis_type}"
+      map analysis_type => method_name = "queries_run_#{underscored_analysis_type}"
+      shared_options
+      query_options
+      data_options
+      self.send(:define_method, method_name) { queries_run(underscored_analysis_type) }
     end
 
     desc 'events:add', 'Add one or more events and print the result'

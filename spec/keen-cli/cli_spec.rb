@@ -89,4 +89,18 @@ describe KeenCli::CLI do
       expect(_).to eq(10)
     end
   end
+
+  describe "queries:run aliases" do
+    KeenCli::CLI::ANALYSIS_TYPES.each do |analysis_type|
+      describe analysis_type do
+        it "aliases to queries run, passing along the #{analysis_type} analysis type" do
+          underscored_analysis_type = analysis_type.sub('-', '_')
+          url = "https://api.keen.io/3.0/projects/#{project_id}/queries/#{underscored_analysis_type}?event_collection=minecraft-deaths"
+          stub_request(:get, url).to_return(:body => { :result => 10 }.to_json)
+          _, options = start "#{analysis_type} --collection minecraft-deaths"
+          expect(_).to eq(10)
+        end
+      end
+    end
+  end
 end
