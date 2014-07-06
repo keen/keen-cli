@@ -18,13 +18,23 @@ Verify the `keen` command is in your path by running it:
 
 ``` shell
 Commands:
+  keen average              # Alias for queries:run -c average
+  keen count                # Alias for queries:run -c count
+  keen count-unique         # Alias for queries:run -c count_unique
   keen events:add           # Add one or more events and print the result
+  keen extraction           # Alias for queries:run -c extraction
   keen help [COMMAND]       # Describe available commands or one specific command
+  keen maximum              # Alias for queries:run -c maximum
+  keen median               # Alias for queries:run -c median
+  keen minimum              # Alias for queries:run -c minimum
+  keen percentile           # Alias for queries:run -c percentile
   keen project:collections  # Print information about a project's collections
   keen project:describe     # Print information about a project
   keen project:open         # Open a project's overview page in a browser
   keen project:workbench    # Open a project's workbench page in a browser
   keen queries:run          # Run a query and print the result
+  keen select-unique        # Alias for queries:run -c select_unique
+  keen sum                  # Alias for queries:run -c sum
   keen version              # Print the keen-cli version
 ```
 
@@ -175,8 +185,24 @@ $ keen queries:run --collection cli-tests --analysis-type median --target-proper
 $ echo "{ \"event_collection\" : \"minecraft-deaths\", \"target_property\": \"level\" }" | keen queries:run -a average
 ```
 
+**Query Aliases**
+
+For each type of analysis (e.g. count, average, extraction, etc.) there is an alias that can be used
+instead of `queries:run`. The command name is simply the type of analysis, using a dash to delimit words.
+Here are a few examples:
+
+``` shell
+$ keen count -c logins
+1000
+$ keen minimum -c cpu-checks -y iowait
+0.17
+```
+
+Run `keen` with no arguments to see the full list of aliases.
+
 ### Changelog
 
++ 0.1.3 – Add querying via JSON. Add query aliases.
 + 0.1.2 – Change `project:show` to `project:describe`
 + 0.1.1 – Add `project:collections`
 + 0.1.0 - Initial version
