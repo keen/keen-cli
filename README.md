@@ -135,6 +135,7 @@ Parameters:
 + `--interval` (alias -i)
 + `--filters` (alias -f)
 + `--percentile`
++ `--data` (alias -d) - Specify query parameters as JSON instead of query params. Data can also be piped in via STDIN.
 
 Some examples:
 
@@ -169,6 +170,9 @@ $ keen queries:run --collection cli-tests --analysis-type median --target-proper
   ...
   ...
   ...
+
+# run a query using JSON to specify parameters
+$ echo "{ \"event_collection\" : \"minecraft-deaths\", \"target_property\": \"level\" }" | keen queries:run -a average
 ```
 
 ### Changelog

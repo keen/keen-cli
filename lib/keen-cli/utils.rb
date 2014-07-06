@@ -25,7 +25,7 @@ module KeenCli
       end
 
       def get_collection_name(options)
-        options["collection"] || ENV['KEEN_COLLECTION_NAME']
+        options["collection"] || options["event_collection"] || ENV['KEEN_COLLECTION_NAME']
       end
 
       def parse_data_as_querystring(query)

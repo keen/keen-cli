@@ -74,5 +74,19 @@ describe KeenCli::CLI do
       _, options = start 'queries:run -a count -c minecraft-deaths'
       expect(_).to eq(10)
     end
+
+    it 'converts dashes to underscores for certain properties' do
+      url = "https://api.keen.io/3.0/projects/#{project_id}/queries/count?event_collection=minecraft-deaths&group_by=foo&target_property=bar"
+      stub_request(:get, url).to_return(:body => { :result => 10 }.to_json)
+      _, options = start 'queries:run --analysis-type count --collection minecraft-deaths --group-by foo --target-property bar'
+      expect(_).to eq(10)
+    end
+
+    it 'uses a data option to take in query JSON' do
+      url = "https://api.keen.io/3.0/projects/#{project_id}/queries/count?event_collection=minecraft-deaths"
+      stub_request(:get, url).to_return(:body => { :result => 10 }.to_json)
+      _, options = start 'queries:run --analysis-type count --data {"event_collection":"minecraft-deaths"}'
+      expect(_).to eq(10)
+    end
   end
 end

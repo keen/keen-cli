@@ -91,24 +91,51 @@ module KeenCli
     map 'queries:run' => :queries_run
     shared_options
     query_options
+    data_options
     def queries_run
 
       Utils.process_options!(options)
 
-      # convert dashes
-      q_options = options.inject({}) do |memo, element|
+      # work with a new set of options
+      q_options = {}
+
+      data = nil
+
+      if $stdin.tty?
+        data = options[:data]
+      else
+        ARGV.clear
+        ARGF.each_line do |line|
+          data = line
+        end
+      end
+
+      # if data is provided, parse it and merge it
+      unless data.nil?
+        data_options = JSON.parse(data)
+        q_options.merge!(data_options)
+      end
+
+      # convert dashes to underscores, and merge all into q_options
+      q_options.merge!(options.inject({}) do |memo, element|
         if ['analysis-type', 'group-by', 'target-property'].include?(element.first)
           memo[element.first.sub('-', '_')] = element.last
         else
           memo[element.first] = element.last
         end
         memo
-      end
+      end)
 
-      collection = Utils.get_collection_name(options)
+      collection = Utils.get_collection_name(q_options)
+      analysis_type = q_options["analysis_type"]
+
+      # delete fields that shouldn't be passed to keen-gem as options
       q_options.delete("collection")
+      q_options.delete("event_collection")
+      q_options.delete("data")
+      q_options.delete("analysis_type")
 
-      Keen.send(q_options.delete("analysis_type"), collection, q_options).tap do |result|
+      Keen.send(analysis_type, collection, q_options).tap do |result|
         if result.is_a?(Hash) || result.is_a?(Array)
           puts JSON.pretty_generate(result)
         else
