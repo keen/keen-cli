@@ -141,7 +141,9 @@ Parameters:
 + `--analysis-type` (alias -a)
 + `--group-by` (alias -g)
 + `--target-property` (alias -y)
-+ `--timeframe` (alias -t)
++ `--timeframe` (alias -t) - A relative timeframe, e.g. `last_60_minutes`
++ `--start` (alias -s) - The start time of an absolute timeframe
++ `--end` (alias -e) - The end time of an absolute timeframe
 + `--interval` (alias -i)
 + `--filters` (alias -f)
 + `--percentile`
@@ -183,6 +185,10 @@ $ keen queries:run --collection cli-tests --analysis-type median --target-proper
   ...
   ...
   ...
+
+# run a query with an absolute timeframe
+$ keen queries:run --analysis-type count --start 2014-07-01T00:00:00Z --end 2014-07-31T23:59:59Z
+1000
 
 # run an extraction with specific property names
 $ keen queries:run --collection minecraft-deaths --analysis-type extraction --property-names player,enemy

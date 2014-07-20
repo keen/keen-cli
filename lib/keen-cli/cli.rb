@@ -35,6 +35,8 @@ module KeenCli
       option :"property-names"
       option :latest
       option :email
+      option :start, :aliases => ['s']
+      option :end, :aliases => ['e']
     end
 
     desc 'version', 'Print the keen-cli version'
@@ -140,6 +142,15 @@ module KeenCli
 
       if property_names = q_options.delete("property_names")
         q_options[:property_names] = property_names.split(",")
+      end
+
+      if start_time = q_options.delete("start")
+        q_options[:timeframe] = { :start => start_time }
+      end
+
+      if end_time = q_options.delete("end")
+        q_options[:timeframe] = q_options[:timeframe] || {}
+        q_options[:timeframe][:end] = end_time
       end
 
       raise "No analysis type given!" unless analysis_type
