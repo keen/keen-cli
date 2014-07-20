@@ -96,8 +96,8 @@ keen-cli has a variety of commands, and most are namespaced for clarity.
 
 Parameters:
 
-+ `--collection` (alias `-c`): The collection to add the event to. Alternately you can set `KEEN_COLLECTION_NAME` on the environment if you're working with the same collection frequently.
-+ `--data` (alias `-d`). The properties of the event. The value can be JSON or key=value pairs delimited by & (just like a query string). Data can also be piped in via STDIN.
++ `--collection`, `-c`: The collection to add the event to. Alternately you can set `KEEN_COLLECTION_NAME` on the environment if you're working with the same collection frequently.
++ `--data`, `-d`: The properties of the event. The value can be JSON or `key=value` pairs delimited by `&` (just like a query string). Data can also be piped in via STDIN.
 
 Various examples:
 
@@ -137,20 +137,20 @@ $ cat events.json | keen events:add -c cli-test
 
 Parameters:
 
-+ `--collection` (alias -c) – The collection name to query against. Can also be set on the environment via `KEEN_COLLECTION_NAME`
-+ `--analysis-type` (alias -a)
-+ `--group-by` (alias -g)
-+ `--target-property` (alias -y)
-+ `--timeframe` (alias -t) - A relative timeframe, e.g. `last_60_minutes`
-+ `--start` (alias -s) - The start time of an absolute timeframe
-+ `--end` (alias -e) - The end time of an absolute timeframe
-+ `--interval` (alias -i)
-+ `--filters` (alias -f)
-+ `--percentile`
-+ `--property-names` - A comma-separated list of property names. Extractions only.
-+ `--latest` - Number of latest events to retrieve. Extractions only.
-+ `--email` - Send extraction results via email, asynchronously. Extractions only.
-+ `--data` (alias -d) - Specify query parameters as JSON instead of query params. Data can also be piped in via STDIN.
++ `--collection`, `-c`: – The collection to query against. Can also be set on the environment via `KEEN_COLLECTION_NAME`.
++ `--analysis-type`, `-a`: The analysis type for the query. Only needed when not using a query command alias.
++ `--group-by`, `-g`: A group by for the query.
++ `--target-property`, `-y`: A target property for the query.
++ `--timeframe`, `-t`: A relative timeframe, e.g. `last_60_minutes`.
++ `--start`, `-s`: The start time of an absolute timeframe.
++ `--end`, `-e`: The end time of an absolute timeframe.
++ `--interval`, `-i`: The interval for a series query.
++ `--filters`, `-f`: A set of filters for the query, passed as JSON.
++ `--percentile`: The percentile value (e.g. 99) for a percentile query.
++ `--property-names`: A comma-separated list of property names. Extractions only.
++ `--latest`: Number of latest events to retrieve. Extractions only.
++ `--email`: Send extraction results via email, asynchronously. Extractions only.
++ `--data`, `-d`: Specify query parameters as JSON instead of query params. Data can also be piped in via STDIN.
 
 Some examples:
 
