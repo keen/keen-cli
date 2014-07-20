@@ -107,21 +107,21 @@ describe KeenCli::CLI do
     it 'converts a start parameter into an absolute timeframe' do
       url = "https://api.keen.io/3.0/projects/#{project_id}/queries/count?event_collection=minecraft-deaths&timeframe=%7B%22start%22:%222014-07-06T12:00:00Z%22%7D"
       stub_request(:get, url).to_return(:body => { :result => 10 }.to_json)
-      _, options = start 'queries:run --analysis-type count --start 2014-07-06T12:00:00Z'
+      _, options = start 'queries:run --collection minecraft-deaths --analysis-type count --start 2014-07-06T12:00:00Z'
       expect(_).to eq(10)
     end
 
     it 'converts an end parameter into an absolute timeframe' do
       url = "https://api.keen.io/3.0/projects/#{project_id}/queries/count?event_collection=minecraft-deaths&timeframe=%7B%22end%22:%222014-07-06T12:00:00Z%22%7D"
       stub_request(:get, url).to_return(:body => { :result => 10 }.to_json)
-      _, options = start 'queries:run --analysis-type count --end 2014-07-06T12:00:00Z'
+      _, options = start 'queries:run --collection minecraft-deaths --analysis-type count --end 2014-07-06T12:00:00Z'
       expect(_).to eq(10)
     end
 
     it 'converts start and end parameters into an absolute timeframe' do
       url = "https://api.keen.io/3.0/projects/#{project_id}/queries/count?event_collection=minecraft-deaths&timeframe=%7B%22start%22:%222014-07-06T12:00:00Z%22,%22end%22:%222014-07-08T12:00:00Z%22%7D"
       stub_request(:get, url).to_return(:body => { :result => 10 }.to_json)
-      _, options = start 'queries:run --analysis-type count --start 2014-07-06T12:00:00Z --end 2014-07-08T12:00:00Z'
+      _, options = start 'queries:run --collection minecraft-deaths --analysis-type count --start 2014-07-06T12:00:00Z --end 2014-07-08T12:00:00Z'
       expect(_).to eq(10)
     end
 
