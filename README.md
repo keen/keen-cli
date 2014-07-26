@@ -232,6 +232,7 @@ Run `keen` with no arguments to see the full list of aliases.
 
 ### Changelog
 
++ 0.1.5 – Support adding events from files with `--file`. Optionally add from CSV with `--csv`.
 + 0.1.4 – Support absolute timeframes via `--start` and `--end` flags
 + 0.1.3 – Add querying via JSON. Add query aliases. Add support for extraction fields.
 + 0.1.2 – Change `project:show` to `project:describe`
