@@ -98,6 +98,7 @@ Parameters:
 
 + `--collection`, `-c`: The collection to add the event to. Alternately you can set `KEEN_COLLECTION_NAME` on the environment if you're working with the same collection frequently.
 + `--data`, `-d`: The properties of the event. The value can be JSON or `key=value` pairs delimited by `&` (just like a query string). Data can also be piped in via STDIN.
++ `--file`, `-f`: The name of a file that contains newline delimited JSON
 
 Various examples:
 

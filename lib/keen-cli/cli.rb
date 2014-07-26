@@ -19,6 +19,10 @@ module KeenCli
       option :data, :aliases => ['-d']
     end
 
+    def self.file_options
+      option :file, :aliases => ['-f']
+    end
+
     def self.collection_options
       option :collection, :aliases => ['-c']
     end
@@ -182,6 +186,7 @@ module KeenCli
 
     shared_options
     data_options
+    file_options
     collection_options
 
     def events_add
@@ -189,7 +194,15 @@ module KeenCli
       events = []
 
       if $stdin.tty?
-        events.push(options[:data] || {})
+        if data = options[:data]
+          events.push(data)
+        elsif file = options[:file]
+          File.readlines(file).each do |line|
+            events.push(line)
+          end
+        else
+          events.push({})
+        end
       else
         ARGV.clear
         ARGF.each_line do |line|
