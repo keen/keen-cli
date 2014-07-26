@@ -127,10 +127,10 @@ $ echo "{ \"username\" : \"dzello\", \"zsh\": 1 }" | keen events:add -c cli-test
 $ echo "username=dzello&zsh=1" | keen events:add -c cli-test
 
 # specify a file that contains newline delimited json
-$ keen events:add --file ./events.json
+$ keen events:add --file events.json
 
 # specify a file in CSV format
-$ keen events:add --csv --file ./events.csv
+$ keen events:add --csv --file events.csv
 
 # pipe in events from a file of newline delimited json
 # { "username" : "dzello", "zsh" : 1 }
