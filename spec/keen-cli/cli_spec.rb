@@ -159,5 +159,14 @@ describe KeenCli::CLI do
       _, options = start "events:add --collection minecraft-deaths --file #{File.expand_path('../../fixtures/events.json', __FILE__)}"
       expect(_).to eq("created" => true)
     end
+
+    it 'should accept JSON events from a file param in CSV format' do
+      url = "https://api.keen.io/3.0/projects/#{project_id}/events/minecraft-deaths"
+      stub_request(:post, "https://api.keen.io/3.0/projects/AAAAAAA/events").
+        with(:body => "{\"minecraft-deaths\":[{\"foo\":1},{\"foo\":2},{\"foo\":3}]}").
+        to_return(:body => { :created => true }.to_json)
+      _, options = start "events:add --collection minecraft-deaths --csv --file #{File.expand_path('../../fixtures/events.csv', __FILE__)}"
+      expect(_).to eq("created" => true)
+    end
   end
 end

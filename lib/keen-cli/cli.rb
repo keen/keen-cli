@@ -1,6 +1,7 @@
 require 'thor'
 require 'keen'
 require 'json'
+require 'csv'
 
 require 'keen-cli/utils'
 
@@ -21,6 +22,7 @@ module KeenCli
 
     def self.file_options
       option :file, :aliases => ['-f']
+      option :csv
     end
 
     def self.collection_options
@@ -192,37 +194,46 @@ module KeenCli
     def events_add
 
       events = []
+      collection = Utils.get_collection_name(options)
 
-      if $stdin.tty?
-        if data = options[:data]
-          events.push(data)
-        elsif file = options[:file]
-          File.readlines(file).each do |line|
-            events.push(line)
+      if options[:csv]
+
+        data = File.read(options[:file])
+        csv = CSV.new(data, :headers => true, :header_converters => :symbol, :converters => :all)
+        events = csv.to_a.map {|row| row.to_hash }
+
+      else
+
+        if $stdin.tty?
+          if data = options[:data]
+            events.push(data)
+          elsif file = options[:file]
+            File.readlines(file).each do |line|
+              events.push(line)
+            end
+          else
+            events.push({})
           end
         else
-          events.push({})
-        end
-      else
-        ARGV.clear
-        ARGF.each_line do |line|
-          events.push(line)
-        end
-      end
-
-      events = events.map do |event|
-        begin
-          JSON.parse(event)
-        rescue
-          begin
-            Utils.parse_data_as_querystring(event)
-          rescue
-            event
+          ARGV.clear
+          ARGF.each_line do |line|
+            events.push(line)
           end
         end
-      end
 
-      collection = Utils.get_collection_name(options)
+        events = events.map do |event|
+          begin
+            JSON.parse(event)
+          rescue
+            begin
+              Utils.parse_data_as_querystring(event)
+            rescue
+              event
+            end
+          end
+        end
+
+      end
 
       if events.length > 1
 

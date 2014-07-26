@@ -99,6 +99,7 @@ Parameters:
 + `--collection`, `-c`: The collection to add the event to. Alternately you can set `KEEN_COLLECTION_NAME` on the environment if you're working with the same collection frequently.
 + `--data`, `-d`: The properties of the event. The value can be JSON or `key=value` pairs delimited by `&` (just like a query string). Data can also be piped in via STDIN.
 + `--file`, `-f`: The name of a file that contains newline delimited JSON
++ `--csv`: Specify that the file is in CSV format
 
 Various examples:
 
@@ -124,6 +125,12 @@ $ echo "{ \"username\" : \"dzello\", \"zsh\": 1 }" | keen events:add -c cli-test
 
 # pipe in events in querystring format
 $ echo "username=dzello&zsh=1" | keen events:add -c cli-test
+
+# specify a file that contains newline delimited json
+$ keen events:add --file ./events.json
+
+# specify a file in CSV format
+$ keen events:add --csv --file ./events.csv
 
 # pipe in events from a file of newline delimited json
 # { "username" : "dzello", "zsh" : 1 }
