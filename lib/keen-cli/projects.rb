@@ -2,44 +2,44 @@ module KeenCli
 
   class CLI < Thor
 
-    desc 'project:describe', 'Print information about a project'
-    map 'project:describe' => :project_describe
+    desc 'projects:describe', 'Print information about a project'
+    map 'projects:describe' => :projects_describe
     shared_options
 
-    def project_describe
+    def projects_describe
       Utils.process_options!(options)
       Keen.project_info.tap do |info|
         puts JSON.pretty_generate(info)
       end
     end
 
-    desc 'project:collections', 'Print information about a project\'s collections'
-    map 'project:collections' => :project_collections
+    desc 'projects:collections', 'Print information about a project\'s collections'
+    map 'projects:collections' => :projects_collections
     shared_options
 
-    def project_collections
+    def projects_collections
       Utils.process_options!(options)
       Keen.event_collections.tap do |collections|
         puts JSON.pretty_generate(collections)
       end
     end
 
-    desc 'project:open', 'Open a project\'s overview page in a browser'
-    map 'project:open' => :project_open
+    desc 'projects:open', 'Open a project\'s overview page in a browser'
+    map 'projects:open' => :projects_open
     shared_options
 
-    def project_open
+    def projects_open
       Utils.process_options!(options)
-      "https://keen.io/project/#{Keen.project_id}".tap do |project_url|
-        `open #{project_url}`
+      "https://keen.io/project/#{Keen.projects_id}".tap do |projects_url|
+        `open #{projects_url}`
       end
     end
 
-    desc 'project:workbench', 'Open a project\'s workbench page in a browser'
-    map 'project:workbench' => :project_workbench
+    desc 'projects:workbench', 'Open a project\'s workbench page in a browser'
+    map 'projects:workbench' => :projects_workbench
     shared_options
 
-    def project_workbench
+    def projects_workbench
       Utils.process_options!(options)
       "https://keen.io/project/#{Keen.project_id}/workbench".tap do |project_url|
         `open #{project_url}`
@@ -49,4 +49,3 @@ module KeenCli
   end
 
 end
-

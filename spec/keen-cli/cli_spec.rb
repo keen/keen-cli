@@ -28,34 +28,34 @@ describe KeenCli::CLI do
     expect(_).to match /version/
   end
 
-  describe 'project:describe' do
+  describe 'projects:describe' do
     it 'gets the project' do
       url = "https://api.keen.io/3.0/projects/#{project_id}"
       stub_request(:get, url).to_return(:body => { :fake => "response" }.to_json)
-      _, options = start 'project:describe'
+      _, options = start 'projects:describe'
       expect(_).to eq("fake" => "response")
     end
 
     it 'uses the project id param if present' do
       url = "https://api.keen.io/3.0/projects/GGGG"
       stub_request(:get, url).to_return(:body => { :fake => "response" }.to_json)
-      _, options = start 'project:describe --project GGGG'
+      _, options = start 'projects:describe --project GGGG'
       expect(_).to eq("fake" => "response")
     end
   end
 
-  describe 'project:collections' do
+  describe 'projects:collections' do
     it 'prints the project\'s collections' do
       url = "https://api.keen.io/3.0/projects/#{project_id}/events"
       stub_request(:get, url).to_return(:body => { :fake => "response" }.to_json)
-      _, options = start 'project:collections'
+      _, options = start 'projects:collections'
       expect(_).to eq("fake" => "response")
     end
 
     it 'uses the project id param if present' do
       url = "https://api.keen.io/3.0/projects/GGGG/events"
       stub_request(:get, url).to_return(:body => { :fake => "response" }.to_json)
-      _, options = start 'project:collections --project GGGG'
+      _, options = start 'projects:collections --project GGGG'
       expect(_).to eq("fake" => "response")
     end
   end

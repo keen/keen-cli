@@ -28,10 +28,10 @@ Commands:
   keen median               # Alias for queries:run -c median
   keen minimum              # Alias for queries:run -c minimum
   keen percentile           # Alias for queries:run -c percentile
-  keen project:collections  # Print information about a project's collections
-  keen project:describe     # Print information about a project
-  keen project:open         # Open a project's overview page in a browser
-  keen project:workbench    # Open a project's workbench page in a browser
+  keen projects:collections  # Print information about a project's collections
+  keen projects:describe     # Print information about a project
+  keen projects:open         # Open a project's overview page in a browser
+  keen projects:workbench    # Open a project's workbench page in a browser
   keen queries:run          # Run a query and print the result
   keen select-unique        # Alias for queries:run -c select_unique
   keen sum                  # Alias for queries:run -c sum
@@ -60,7 +60,7 @@ If you run `keen` from a directory with this .env file, it will assume the proje
 To override the project context use the `--project` option:
 
 ``` shell
-$ keen project:describe --project XXXXXXXXXXXXXXX
+$ keen projects:describe --project XXXXXXXXXXXXXXX
 ```
 
 Similar overrides are available for specifiying API keys: `--master-key`, `--read-key` and `--write-key`.
@@ -68,13 +68,13 @@ Similar overrides are available for specifiying API keys: `--master-key`, `--rea
 For example:
 
 ``` shell
-$ keen project:describe --project XXXXXXXXXXXXXXX --master-key AAAAAAAAAAAAAA
+$ keen projects:describe --project XXXXXXXXXXXXXXX --master-key AAAAAAAAAAAAAA
 ```
 
 Shorter aliases exist as well: `-p` for project, `-k` for master key, `-r` for read key, and `-w` for write key.
 
 ``` shell
-$ keen project:describe -p XXXXXXXXXXXXXXX -k AAAAAAAAAAAAAA
+$ keen projects:describe -p XXXXXXXXXXXXXXX -k AAAAAAAAAAAAAA
 ```
 
 ### Usage
@@ -85,10 +85,10 @@ keen-cli has a variety of commands, and most are namespaced for clarity.
 
 ##### Projects
 
-* `project:open` - Open the Project Overview page in a browser
-* `project:workbench` - Open the Project Workbench page in a browser
-* `project:describe` - Get data about the project. Uses the [project row resource](https://keen.io/docs/api/reference/#project-row-resource).
-* `project:collections` - Get schema information about the project's collections. Uses the [event resource](https://keen.io/docs/api/reference/#event-resource).
+* `projects:open` - Open the Project Overview page in a browser
+* `projects:workbench` - Open the Project Workbench page in a browser
+* `projects:describe` - Get data about the project. Uses the [project row resource](https://keen.io/docs/api/reference/#project-row-resource).
+* `projects:collections` - Get schema information about the project's collections. Uses the [event resource](https://keen.io/docs/api/reference/#event-resource).
 
 ##### Events
 
