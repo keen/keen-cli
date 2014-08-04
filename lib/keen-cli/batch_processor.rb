@@ -46,7 +46,7 @@ module KeenCli
         csv_row = CSV.parse_line(line, self.csv_options)
         raise "Could not parse! #{line}" unless csv_row
 
-        hash = csv_row.to_hash
+        hash = row_to_hash(csv_row)
 
       elsif self.params
 
@@ -88,6 +88,15 @@ module KeenCli
       Keen.publish_batch(batches).tap do |result|
         Utils.out_json(result, :pretty => self.pretty, :silent => self.silent)
       end
+    end
+
+    def row_to_hash(csv_row)
+      naive_hash = csv_row.to_hash
+      naive_hash.map do |main_key, main_value|
+        main_key.to_s.split('.').reverse.inject(main_value) do |value, key|
+          {key => value}
+        end
+      end.inject(&:deep_merge)
     end
 
   end

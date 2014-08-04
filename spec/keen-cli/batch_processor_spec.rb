@@ -66,6 +66,24 @@ module KeenCli
         })
       end
 
+      it 'converts a csv line with dotted properties to nested hashes' do
+        batch_processor.csv = true
+        batch_processor.csv_options[:headers] = ['keen.timestamp', 'apple.date', 'apple.banana.cherry', 'apple.banana.walnut']
+        batch_processor.add('2012-08-09,pudding,smoothie,butter')
+        expect(batch_processor.events.first).to eq({
+          "apple" => {
+            "date" => "pudding",
+            "banana" => {
+              "cherry" => "smoothie",
+              "walnut" => "butter"
+            }
+          },
+          "keen" => {
+            "timestamp" => "2012-08-09"
+          }
+        })
+      end
+
     end
 
     describe 'add' do

@@ -97,47 +97,53 @@ keen-cli has a variety of commands, and most are namespaced for clarity.
 Parameters:
 
 + `--collection`, `-c`: The collection to add the event to. Alternately you can set `KEEN_COLLECTION_NAME` on the environment if you're working with the same collection frequently.
-+ `--data`, `-d`: The properties of the event. The value can be JSON or `key=value` pairs delimited by `&` (just like a query string). Data can also be piped in via STDIN.
-+ `--file`, `-f`: The name of a file in newline-delimited JSON. If the file is in CSV format, add the `--csv` flag.
-+ `--csv`: Specify that the file is in CSV format. The first line of the CSV file must contain column names.
-+ `--batch-size`: Batch size of events posted, defaults to 1000
++ `--batch-size`: Batch size of events posted to Keen, defaults to 1000.
+
+Input source parameters:
+
++ `--data`, `-d`: Pass an event body on the command line. Make sure to use quotes where necessary.
++ `--file`, `-f`: The name of a file containing events.
+
+You can also pass input via `STDIN`.
+
+If not otherwise specified, the format of data from any source is assumed to be newline-delimited JSON. CSV and query string-like input is also supported. The associated params:
+
++ `--csv`: Specify CSV format. The first line must contain column names. Column names containing ".", such as "keen.timestamp", will be converted to nested properties.
++ `--params`: Specify "params" format. Params format looks like `property1=value1&property2=value` etc.
 
 Various examples:
 
 ``` shell
-# create an empty event
+# add an empty event
 $ keen events:add --collection cli-tests
 
 # use the shorter form of collection
 $ keen events:add -c cli-tests
 
-# add a blank event to a collection specified in the .env file:
+# add a blank event to a collection specified in a .env file:
 # KEEN_COLLECTION_NAME=cli-tests
 $ keen events:add
 
-# create an event from JSON
-$ keen events:add -c cli-tests -d "{ \"username\" : \"dzello\", \"zsh\": 1 }"
+# add an event from JSON using the --data parameter
+$ keen events:add -c cli-tests --data "{ \"username\" : \"dzello\", \"zsh\": 1 }"
 
-# create an event from key value pairs
-$ keen events:add -c cli-tests -d "username=dzello&zsh=1"
+# add an event from key value pairs
+$ keen events:add -c cli-tests -data "username=dzello&zsh=1" --params
 
 # pipe in events as JSON
 $ echo "{ \"username\" : \"dzello\", \"zsh\": 1 }" | keen events:add -c cli-tests
 
-# pipe in events in querystring format
-$ echo "username=dzello&zsh=1" | keen events:add -c cli-test
-
-# specify a file that contains newline delimited json
+# add events from a file that contains newline delimited json
+# { "apple" : "sauce" }
+# { "banana" : "pudding" }
+# { "cherry" : "pie" }
 $ keen events:add --file events.json
 
-# specify a file in CSV format
-$ keen events:add --csv --file events.csv
-
-# pipe in events from a file of newline delimited json
-# { "username" : "dzello", "zsh" : 1 }
-# { "username" : "dkador", "zsh" : 1 }
-# { "username" : "gphat", "zsh" : 1 }
-$ cat events.json | keen events:add -c cli-test
+# add events from a file in CSV format; the first row should be columns
+# fruit,dish
+# apple,sauce
+# banana,pudding
+$ keen events:add --file events.csv --csv
 ```
 
 ##### Queries
@@ -159,7 +165,11 @@ Parameters:
 + `--property-names`: A comma-separated list of property names. Extractions only.
 + `--latest`: Number of latest events to retrieve. Extractions only.
 + `--email`: Send extraction results via email, asynchronously. Extractions only.
-+ `--data`, `-d`: Specify query parameters as JSON instead of query params. Data can also be piped in via STDIN.
+
+Input source parameters:
++ `--data`, `-d`: Specify query parameters as JSON instead of query params.
+
+You can also pass input via `STDIN`.
 
 Some examples:
 
