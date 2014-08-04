@@ -4,8 +4,9 @@ module KeenCli
 
   class CLI < Thor
 
-    def self.batch_options
+    def self.events_options
       option :csv
+      option :params
       option :'batch-size'
     end
 
@@ -16,7 +17,7 @@ module KeenCli
     data_options
     file_options
     collection_options
-    batch_options
+    events_options
 
     def events_add
 
@@ -24,6 +25,7 @@ module KeenCli
 
       batch_processor = BatchProcessor.new(collection,
         :csv => options[:csv],
+        :params => options[:params],
         :pretty => options[:pretty],
         :silent => options[:silent],
         :batch_size => options[:'batch-size'])
@@ -48,6 +50,11 @@ module KeenCli
           batch_processor.add(line)
           total_events += 1
         end
+      end
+
+      if $stdin.tty? && data.nil? && file.nil?
+        batch_processor.add("{}")
+        total_events += 1
       end
 
       batch_processor.flush
