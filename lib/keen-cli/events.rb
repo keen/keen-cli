@@ -25,6 +25,7 @@ module KeenCli
       batch_processor = BatchProcessor.new(collection,
         :csv => options[:csv],
         :pretty => options[:pretty],
+        :silent => options[:silent],
         :batch_size => options[:'batch-size'])
 
       total_events = 0

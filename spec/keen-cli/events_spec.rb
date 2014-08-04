@@ -2,10 +2,6 @@ require 'spec_helper'
 
 describe KeenCli::CLI do
 
-  def start(str=nil)
-    KeenCli::CLI.start(str ? str.split(" ") : [])
-  end
-
   describe 'events:add' do
     it 'should accept JSON events from a data param' do
       stub_request(:post, "https://api.keen.io/3.0/projects/#{Keen.project_id}/events").

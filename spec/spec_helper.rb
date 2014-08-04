@@ -13,3 +13,9 @@ RSpec.configure do |config|
   end
 
 end
+
+def start(str=nil)
+  arry = str ? str.split(" ") : []
+  arry.push("--silent")
+  KeenCli::CLI.start(arry)
+end

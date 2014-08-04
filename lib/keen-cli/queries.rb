@@ -80,9 +80,9 @@ module KeenCli
 
       Keen.send(analysis_type, collection, q_options).tap do |result|
         if result.is_a?(Hash) || result.is_a?(Array)
-          Utils.print_json(result, options)
+          Utils.out_json(result, options)
         else
-          puts result
+          Utils.out(result, options)
         end
       end
     end

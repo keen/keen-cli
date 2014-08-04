@@ -7,10 +7,6 @@ describe KeenCli::CLI do
   let(:read_key) { Keen.read_key }
   let(:write_key) { Keen.write_key }
 
-  def start(str=nil)
-    KeenCli::CLI.start(str ? str.split(" ") : [])
-  end
-
   describe 'queries:run' do
     it 'runs the query using certain params' do
       url = "https://api.keen.io/3.0/projects/#{project_id}/queries/count?event_collection=minecraft-deaths"

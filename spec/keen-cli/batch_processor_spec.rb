@@ -21,6 +21,11 @@ module KeenCli
         expect(batch_processor.pretty).to eq(true)
       end
 
+      it 'sets the silent output' do
+        batch_processor = BatchProcessor.new('signups', :silent => true)
+        expect(batch_processor.silent).to eq(true)
+      end
+
       it 'sets csv and merges csv options with defaults' do
         csv_processor = BatchProcessor.new('signups', :csv => true, :csv_options => { :headers => ['foo'] })
         expect(csv_processor.csv).to eq(true)
@@ -65,7 +70,7 @@ module KeenCli
 
     describe 'add' do
 
-      let(:batch_processor) { BatchProcessor.new('signups') }
+      let(:batch_processor) { BatchProcessor.new('signups', :silent => true) }
 
       it 'starts empty' do
         expect(batch_processor.size).to eq(0)
@@ -84,7 +89,7 @@ module KeenCli
       it 'flushes at the batch size' do
         stub_request(:post, "https://api.keen.io/3.0/projects/#{Keen.project_id}/events").
           with(:body => "{\"signups\":[{\"apple\":\"sauce\",\"banana\":\"pancakes\"},{\"apple\":\"sauce\",\"banana\":\"pancakes\"}]}").
-          to_return(:status => 200, :body => "{ \"signups\" => [] }", :headers => {})
+          to_return(:status => 200, :body => { "signups" => [{ "created" => true }] }.to_json)
         batch_processor.batch_size = 2
         batch_processor.add('{ "apple": "sauce", "banana": "pancakes" }')
         expect(batch_processor.size).to eq(1)

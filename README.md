@@ -142,7 +142,7 @@ $ cat events.json | keen events:add -c cli-test
 
 ##### Queries
 
-`queries:run` - Runs a query and prints the result in pretty JSON.
+`queries:run` - Runs a query and prints the result
 
 Parameters:
 
@@ -236,6 +236,7 @@ Run `keen` with no arguments to see the full list of aliases.
 Parameters that apply to most commands include:
 
 + `--pretty`: Prettify API response JSON. Defaults to true, set `--pretty=false` to prevent
++ `--silent`: Silence any output. Defaults to false.
 
 ### Changelog
 

@@ -8,6 +8,7 @@ module KeenCli
       option :"read-key", :aliases => ['-r']
       option :"write-key", :aliases => ['-w']
       option :pretty, :type => :boolean, :default => true
+      option :silent, :type => :boolean, :default => false
     end
 
     def self.collection_options

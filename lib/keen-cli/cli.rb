@@ -18,9 +18,11 @@ module KeenCli
     desc 'version', 'Print the keen-cli version'
     map %w(-v --version) => :version
 
+    shared_options
+
     def version
       "keen-cli version #{KeenCli::VERSION}".tap do |s|
-        puts s
+        Utils.out(s, options)
       end
     end
 

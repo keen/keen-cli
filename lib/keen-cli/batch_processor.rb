@@ -13,6 +13,7 @@ module KeenCli
     attr_accessor :csv
     attr_accessor :csv_options
     attr_accessor :pretty
+    attr_accessor :silent
 
     # internal state tracking
     attr_accessor :size
@@ -26,6 +27,7 @@ module KeenCli
       self.csv_options = DEFAULT_CSV_OPTIONS.merge(options[:csv_options] || {})
       self.events = []
       self.pretty = options[:pretty]
+      self.silent = options[:silent]
       self.reset
     end
 
@@ -84,7 +86,7 @@ module KeenCli
       batches = {}
       batches[collection] = events
       Keen.publish_batch(batches).tap do |result|
-        Utils.print_json(result, :pretty => self.pretty)
+        Utils.out_json(result, :pretty => self.pretty, :silent => self.silent)
       end
     end
 

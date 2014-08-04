@@ -9,7 +9,7 @@ module KeenCli
     def projects_describe
       Utils.process_options!(options)
       Keen.project_info.tap do |info|
-        Utils.print_json(info, options)
+        Utils.out_json(info, options)
       end
     end
 
@@ -20,7 +20,7 @@ module KeenCli
     def projects_collections
       Utils.process_options!(options)
       Keen.event_collections.tap do |collections|
-        Utils.print_json(collections, options)
+        Utils.out_json(collections, options)
       end
     end
 
