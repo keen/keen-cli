@@ -95,7 +95,7 @@ module KeenCli
 
     ANALYSIS_TYPES.each do |analysis_type|
       underscored_analysis_type = analysis_type.sub('-', '_')
-      desc analysis_type, "Alias for queries:run -c #{underscored_analysis_type}"
+      desc analysis_type, "Alias for queries:run -a #{underscored_analysis_type}"
       map analysis_type => method_name = "queries_run_#{underscored_analysis_type}"
       shared_options
       query_options

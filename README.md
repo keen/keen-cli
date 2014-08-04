@@ -18,24 +18,24 @@ Verify the `keen` command is in your path by running it:
 
 ``` shell
 Commands:
-  keen average              # Alias for queries:run -c average
-  keen count                # Alias for queries:run -c count
-  keen count-unique         # Alias for queries:run -c count_unique
-  keen events:add           # Add one or more events and print the result
-  keen extraction           # Alias for queries:run -c extraction
-  keen help [COMMAND]       # Describe available commands or one specific command
-  keen maximum              # Alias for queries:run -c maximum
-  keen median               # Alias for queries:run -c median
-  keen minimum              # Alias for queries:run -c minimum
-  keen percentile           # Alias for queries:run -c percentile
+  keen average               # Alias for queries:run -a average
+  keen count                 # Alias for queries:run -a count
+  keen count-unique          # Alias for queries:run -a count_unique
+  keen events:add            # Add one or more events and print the result
+  keen extraction            # Alias for queries:run -a extraction
+  keen help [COMMAND]        # Describe available commands or one specific command
+  keen maximum               # Alias for queries:run -a maximum
+  keen median                # Alias for queries:run -a median
+  keen minimum               # Alias for queries:run -a minimum
+  keen percentile            # Alias for queries:run -a percentile
   keen projects:collections  # Print information about a project's collections
   keen projects:describe     # Print information about a project
   keen projects:open         # Open a project's overview page in a browser
   keen projects:workbench    # Open a project's workbench page in a browser
-  keen queries:run          # Run a query and print the result
-  keen select-unique        # Alias for queries:run -c select_unique
-  keen sum                  # Alias for queries:run -c sum
-  keen version              # Print the keen-cli version
+  keen queries:run           # Run a query and print the result
+  keen select-unique         # Alias for queries:run -a select_unique
+  keen sum                   # Alias for queries:run -a sum
+  keen version               # Print the keen-cli version
 ```
 
 You should see information about available commands.
