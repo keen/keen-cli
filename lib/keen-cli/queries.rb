@@ -27,6 +27,64 @@ module KeenCli
 
       Utils.process_options!(options)
 
+      collection = Utils.get_collection_name(options)
+      raise "No collection given!" unless collection
+
+      analysis_type = analysis_type || options[:"analysis-type"]
+      raise "No analysis type given!" unless analysis_type
+
+      query_options = to_query_options(options)
+
+      Keen.query(analysis_type, collection, query_options).tap do |result|
+        if result.is_a?(Hash) || result.is_a?(Array)
+          Utils.out_json(result, options)
+        else
+          Utils.out(result, options)
+        end
+      end
+    end
+
+    desc 'queries:url', 'Print the URL for a query'
+    map 'queries:url' => :queries_url
+    shared_options
+    query_options
+    data_options
+    option :'exclude-api-key'
+
+    def queries_url
+
+      Utils.process_options!(options)
+
+      collection = Utils.get_collection_name(options)
+      raise "No collection given!" unless collection
+
+      analysis_type = options[:"analysis-type"]
+      raise "No analysis type given!" unless analysis_type
+
+      query_options = to_query_options(options)
+
+      Keen.query_url(analysis_type, collection, query_options,
+                     { :exclude_api_key => options[:'exclude-api-key']}).tap do |url|
+        Utils.out(url, options)
+      end
+    end
+
+    ANALYSIS_TYPES = %w(average count count-unique extraction median minimum maximum sum percentile select-unique)
+
+    ANALYSIS_TYPES.each do |analysis_type|
+      underscored_analysis_type = analysis_type.sub('-', '_')
+      desc analysis_type, "Alias for queries:run -a #{underscored_analysis_type}"
+      map analysis_type => method_name = "queries_run_#{underscored_analysis_type}"
+      shared_options
+      query_options
+      data_options
+      self.send(:define_method, method_name) { queries_run(underscored_analysis_type) }
+    end
+
+    private
+
+    def to_query_options(options)
+
       data = nil
 
       if $stdin.tty?
@@ -46,12 +104,6 @@ module KeenCli
         data_options = JSON.parse(data)
         q_options.merge!(data_options)
       end
-
-      collection = Utils.get_collection_name(options)
-      raise "No collection given!" unless collection
-
-      analysis_type = analysis_type || options[:"analysis-type"]
-      raise "No analysis type given!" unless analysis_type
 
       # copy query options in intelligently
       q_options[:group_by] = options[:"group-by"]
@@ -78,26 +130,9 @@ module KeenCli
 
       q_options.delete_if { |k, v| v.nil? }
 
-      Keen.query(analysis_type, collection, q_options).tap do |result|
-        if result.is_a?(Hash) || result.is_a?(Array)
-          Utils.out_json(result, options)
-        else
-          Utils.out(result, options)
-        end
-      end
+      q_options
     end
 
-    ANALYSIS_TYPES = %w(average count count-unique extraction median minimum maximum sum percentile select-unique)
-
-    ANALYSIS_TYPES.each do |analysis_type|
-      underscored_analysis_type = analysis_type.sub('-', '_')
-      desc analysis_type, "Alias for queries:run -a #{underscored_analysis_type}"
-      map analysis_type => method_name = "queries_run_#{underscored_analysis_type}"
-      shared_options
-      query_options
-      data_options
-      self.send(:define_method, method_name) { queries_run(underscored_analysis_type) }
-    end
   end
 
 end

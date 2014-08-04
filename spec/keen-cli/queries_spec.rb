@@ -43,7 +43,6 @@ describe KeenCli::CLI do
       expect(_).to eq(10)
     end
 
-
     it 'uses a data option to take in query JSON' do
       url = "https://api.keen.io/3.0/projects/#{project_id}/queries/count?event_collection=minecraft-deaths"
       stub_request(:get, url).to_return(:body => { :result => 10 }.to_json)
@@ -70,6 +69,22 @@ describe KeenCli::CLI do
       stub_request(:get, url).to_return(:body => { :result => 10 }.to_json)
       _, options = start 'queries:run --collection minecraft-deaths --analysis-type count --start 2014-07-06T12:00:00Z --end 2014-07-08T12:00:00Z'
       expect(_).to eq(10)
+    end
+
+  end
+
+  describe 'queries:url' do
+
+    it 'should return the url instead of running the query' do
+      url = "https://api.keen.io/3.0/projects/#{project_id}/queries/count?event_collection=minecraft-deaths&api_key=#{Keen.read_key}"
+      _, options = start 'queries:url --analysis-type count --collection minecraft-deaths'
+      expect(_).to eq(url)
+    end
+
+    it 'should not include the api key if excluded' do
+      url = "https://api.keen.io/3.0/projects/#{project_id}/queries/count?event_collection=minecraft-deaths"
+      _, options = start 'queries:url --analysis-type count --collection minecraft-deaths --exclude-api-key'
+      expect(_).to eq(url)
     end
 
   end

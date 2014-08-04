@@ -33,6 +33,7 @@ Commands:
   keen projects:open         # Open a project's overview page in a browser
   keen projects:workbench    # Open a project's workbench page in a browser
   keen queries:run           # Run a query and print the result
+  keen queries:url           # Print the URL for a query
   keen select-unique         # Alias for queries:run -a select_unique
   keen sum                   # Alias for queries:run -a sum
   keen version               # Print the keen-cli version
@@ -108,7 +109,7 @@ You can also pass input via `STDIN`.
 
 If not otherwise specified, the format of data from any source is assumed to be newline-delimited JSON. CSV and query string-like input is also supported. The associated params:
 
-+ `--csv`: Specify CSV format. The first line must contain column names. Column names containing ".", such as "keen.timestamp", will be converted to nested properties.
++ `--csv`: Specify CSV format. The first line must contain column names. Column names containing `.`, such as `keen.timestamp`, will be converted to nested properties.
 + `--params`: Specify "params" format. Params format looks like `property1=value1&property2=value` etc.
 
 Various examples:
@@ -240,6 +241,12 @@ $ keen minimum -c cpu-checks -y iowait
 ```
 
 Run `keen` with no arguments to see the full list of aliases.
+
+`queries:url` - Generates the URL of a query, but does not run it.
+
+The same parameters apply as `queries:run`, in addition to one extra.
+
++ `--exclude-api-key`: Prevent the API key query param from being included in the output
 
 ### Global parameters
 
