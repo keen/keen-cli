@@ -7,6 +7,7 @@ module KeenCli
       option :"master-key", :aliases => ['-k']
       option :"read-key", :aliases => ['-r']
       option :"write-key", :aliases => ['-w']
+      option :pretty, :type => :boolean, :default => true
     end
 
     def self.collection_options

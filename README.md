@@ -235,7 +235,7 @@ Run `keen` with no arguments to see the full list of aliases.
 
 Parameters that apply to most commands include:
 
-+ `--pretty`: Prettify API response JSON
++ `--pretty`: Prettify API response JSON. Defaults to true, set `--pretty=false` to prevent
 
 ### Changelog
 

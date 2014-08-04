@@ -7,7 +7,6 @@ module KeenCli
     def self.batch_options
       option :csv
       option :'batch-size'
-      option :pretty
     end
 
     desc 'events:add', 'Add one or more events and print the result'

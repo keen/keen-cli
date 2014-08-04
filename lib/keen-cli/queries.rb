@@ -27,9 +27,6 @@ module KeenCli
 
       Utils.process_options!(options)
 
-      # work with a new set of options
-      q_options = {}
-
       data = nil
 
       if $stdin.tty?
@@ -37,9 +34,12 @@ module KeenCli
       else
         ARGV.clear
         ARGF.each_line do |line|
-          data = line
+          data += line
         end
       end
+
+      # setup a holder for query options
+      q_options = {}
 
       # if data is provided, parse it and merge it
       unless data.nil?
@@ -47,44 +47,40 @@ module KeenCli
         q_options.merge!(data_options)
       end
 
-      # convert dashes to underscores, and merge all into q_options
-      q_options.merge!(options.inject({}) do |memo, element|
-        if ['analysis-type', 'group-by', 'target-property', 'property-names'].include?(element.first)
-          memo[element.first.sub('-', '_')] = element.last
-        else
-          memo[element.first] = element.last
-        end
-        memo
-      end)
+      collection = Utils.get_collection_name(options)
+      raise "No collection given!" unless collection
 
-      collection = Utils.get_collection_name(q_options)
-      analysis_type = analysis_type || q_options["analysis_type"]
+      analysis_type = analysis_type || options[:"analysis-type"]
+      raise "No analysis type given!" unless analysis_type
 
-      # delete fields that shouldn't be passed to keen-gem as options
-      q_options.delete("collection")
-      q_options.delete("event_collection")
-      q_options.delete("data")
-      q_options.delete("analysis_type")
+      # copy query options in intelligently
+      q_options[:group_by] = options[:"group-by"]
+      q_options[:target_property] = options[:"target-property"]
+      q_options[:interval] = options[:interval]
+      q_options[:timeframe] = options[:timeframe]
+      q_options[:filters] = options[:filters]
+      q_options[:percentile] = options[:percentile]
+      q_options[:latest] = options[:latest]
+      q_options[:email] = options[:email]
 
-      if property_names = q_options.delete("property_names")
+      if property_names = options[:"property-names"]
         q_options[:property_names] = property_names.split(",")
       end
 
-      if start_time = q_options.delete("start")
+      if start_time = options[:start]
         q_options[:timeframe] = { :start => start_time }
       end
 
-      if end_time = q_options.delete("end")
+      if end_time = options[:end]
         q_options[:timeframe] = q_options[:timeframe] || {}
         q_options[:timeframe][:end] = end_time
       end
 
-      raise "No analysis type given!" unless analysis_type
-      raise "No collection given!" unless collection
+     q_options.delete_if { |k, v| v.nil? }
 
       Keen.send(analysis_type, collection, q_options).tap do |result|
         if result.is_a?(Hash) || result.is_a?(Array)
-          puts JSON.pretty_generate(result)
+          Utils.print_json(result, options)
         else
           puts result
         end
