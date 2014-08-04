@@ -76,9 +76,9 @@ module KeenCli
         q_options[:timeframe][:end] = end_time
       end
 
-     q_options.delete_if { |k, v| v.nil? }
+      q_options.delete_if { |k, v| v.nil? }
 
-      Keen.send(analysis_type, collection, q_options).tap do |result|
+      Keen.query(analysis_type, collection, q_options).tap do |result|
         if result.is_a?(Hash) || result.is_a?(Array)
           Utils.out_json(result, options)
         else
