@@ -100,6 +100,7 @@ Parameters:
 + `--data`, `-d`: The properties of the event. The value can be JSON or `key=value` pairs delimited by `&` (just like a query string). Data can also be piped in via STDIN.
 + `--file`, `-f`: The name of a file in newline-delimited JSON. If the file is in CSV format, add the `--csv` flag.
 + `--csv`: Specify that the file is in CSV format. The first line of the CSV file must contain column names.
++ `--batch-size`: Batch size of events posted, defaults to 1000
 
 Various examples:
 
@@ -229,6 +230,12 @@ $ keen minimum -c cpu-checks -y iowait
 ```
 
 Run `keen` with no arguments to see the full list of aliases.
+
+### Global parameters
+
+Parameters that apply to most commands include:
+
++ `--pretty`: Prettify API response JSON
 
 ### Changelog
 

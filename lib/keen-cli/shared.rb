@@ -13,6 +13,14 @@ module KeenCli
       option :collection, :aliases => ['-c']
     end
 
+    def self.data_options
+      option :data, :aliases => ['-d']
+    end
+
+    def self.file_options
+      option :file, :aliases => ['-f']
+    end
+
   end
 
 end

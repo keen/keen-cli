@@ -1,14 +1,13 @@
+require 'keen-cli/batch_processor'
+
 module KeenCli
 
   class CLI < Thor
 
-    def self.data_options
-      option :data, :aliases => ['-d']
-    end
-
-    def self.file_options
-      option :file, :aliases => ['-f']
+    def self.batch_options
       option :csv
+      option :'batch-size'
+      option :pretty
     end
 
     desc 'events:add', 'Add one or more events and print the result'
@@ -18,64 +17,42 @@ module KeenCli
     data_options
     file_options
     collection_options
+    batch_options
 
     def events_add
 
-      events = []
       collection = Utils.get_collection_name(options)
 
-      if options[:csv]
+      batch_processor = BatchProcessor.new(collection,
+        :csv => options[:csv],
+        :pretty => options[:pretty],
+        :batch_size => options[:'batch-size'])
 
-        data = File.read(options[:file])
-        csv = CSV.new(data, :headers => true, :header_converters => :symbol, :converters => :all)
-        events = csv.to_a.map {|row| row.to_hash }
+      total_events = 0
 
-      else
-
-        if $stdin.tty?
-          if data = options[:data]
-            events.push(data)
-          elsif file = options[:file]
-            File.readlines(file).each do |line|
-              events.push(line)
-            end
-          else
-            events.push({})
-          end
-        else
-          ARGV.clear
-          ARGF.each_line do |line|
-            events.push(line)
-          end
-        end
-
-        events = events.map do |event|
-          begin
-            JSON.parse(event)
-          rescue
-            begin
-              Utils.parse_data_as_querystring(event)
-            rescue
-              event
-            end
-          end
-        end
-
+      if data = options[:data]
+        batch_processor.add(data)
+        total_events += 1
       end
 
-      if events.length > 1
-
-        Keen.publish_batch(collection => events).tap do |result|
-          puts JSON.pretty_generate(result)
+      if file = options[:file]
+        File.readlines(file).each do |line|
+          batch_processor.add(line)
+          total_events += 1
         end
-
-      else
-
-        Keen.publish(collection, events.first).tap do |result|
-          puts JSON.pretty_generate(result)
-        end
-
       end
+
+      if !$stdin.tty?
+        ARGV.clear
+        ARGF.each_line do |line|
+          batch_processor.add(line)
+          total_events += 1
+        end
+      end
+
+      batch_processor.flush
+
+      total_events
 
     end
 

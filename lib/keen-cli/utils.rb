@@ -24,6 +24,14 @@ module KeenCli
 
       end
 
+      def print_json(hash, options)
+        if options[:pretty]
+          puts JSON.pretty_generate(hash)
+        else
+          puts JSON.generate(hash)
+        end
+      end
+
       def get_collection_name(options)
         options["collection"] || options["event_collection"] || ENV['KEEN_COLLECTION_NAME']
       end
