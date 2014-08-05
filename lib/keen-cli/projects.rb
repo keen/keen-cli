@@ -30,7 +30,7 @@ module KeenCli
 
     def projects_open
       Utils.process_options!(options)
-      "https://keen.io/project/#{Keen.projects_id}".tap do |projects_url|
+      "https://keen.io/project/#{Keen.project_id}".tap do |projects_url|
         `open #{projects_url}`
       end
     end
