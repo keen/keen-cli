@@ -21,6 +21,8 @@ module KeenCli
 
     def events_add
 
+      Utils.process_options!(options)
+
       collection = Utils.get_collection_name(options)
 
       batch_processor = BatchProcessor.new(collection,
