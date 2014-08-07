@@ -227,6 +227,16 @@ $ keen queries:run --collection minecraft-deaths --analysis-type extraction --pr
 $ echo "{ \"event_collection\" : \"minecraft-deaths\", \"target_property\": \"level\" }" | keen queries:run -a average
 ```
 
+**Query URL Generation**
+
+Run `keen` with no arguments to see the full list of aliases.
+
+`queries:url` - Generates the URL of a query, but does not run it.
+
+The same parameters apply as `queries:run`, in addition to one extra.
+
++ `--exclude-api-key`: Prevent the API key query param from being included in the output
+ 
 **Query Aliases**
 
 For each type of analysis (e.g. count, average, extraction, etc.) there is an alias that can be used
@@ -239,14 +249,6 @@ $ keen count -c logins
 $ keen minimum -c cpu-checks -y iowait
 0.17
 ```
-
-Run `keen` with no arguments to see the full list of aliases.
-
-`queries:url` - Generates the URL of a query, but does not run it.
-
-The same parameters apply as `queries:run`, in addition to one extra.
-
-+ `--exclude-api-key`: Prevent the API key query param from being included in the output
 
 ### Global parameters
 
