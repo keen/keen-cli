@@ -21,6 +21,7 @@ Commands:
   keen average               # Alias for queries:run -a average
   keen count                 # Alias for queries:run -a count
   keen count-unique          # Alias for queries:run -a count_unique
+  keen docs                  # Open the full Keen IO documentation in a browser
   keen events:add            # Add one or more events and print the result
   keen extraction            # Alias for queries:run -a extraction
   keen help [COMMAND]        # Describe available commands or one specific command
@@ -82,7 +83,8 @@ $ keen projects:describe -p XXXXXXXXXXXXXXX -k AAAAAAAAAAAAAA
 
 keen-cli has a variety of commands, and most are namespaced for clarity.
 
-* `version` - Print version information
+* `version` - Print version information.
+* `docs` - Open the full [Keen IO docs](https://keen.io/docs) in a browser window.
 
 ##### Projects
 
