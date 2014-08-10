@@ -84,7 +84,7 @@ $ keen projects:describe -p XXXXXXXXXXXXXXX -k AAAAAAAAAAAAAA
 keen-cli has a variety of commands, and most are namespaced for clarity.
 
 * `version` - Print version information.
-* `docs` - Open the full [Keen IO docs](https://keen.io/docs) in a browser window.
+* `docs` - Open the full [Keen IO docs](https://keen.io/docs) in a browser window. Pass `--reference` to go straight to the [API Technical Reference](https://keen.io/docs/api/reference/).
 
 ##### Projects
 

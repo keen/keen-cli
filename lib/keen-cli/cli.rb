@@ -30,10 +30,13 @@ module KeenCli
     map %w(--docs) => :docs
 
     shared_options
+    option :reference
 
     def docs
-      "https://keen.io/docs".tap do |docs_url|
-        `open #{docs_url}`
+      docs_url = options[:reference] ? 'https://keen.io/docs/api/reference/' :
+                                       'https://keen.io/docs'
+      docs_url.tap do |url|
+        `open #{url}`
       end
     end
 
