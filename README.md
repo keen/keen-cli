@@ -261,6 +261,7 @@ Parameters that apply to most commands include:
 
 ### Changelog
 
++ 0.1.7 - Add docs command
 + 0.1.6 - Big refactoring to make importing events much cleaner and batching happen automatically. Also adds `queries:url`.
 + 0.1.5 – Support adding events from files with `--file`. Optionally add from CSV with `--csv`.
 + 0.1.4 – Support absolute timeframes via `--start` and `--end` flags
