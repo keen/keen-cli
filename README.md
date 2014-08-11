@@ -118,34 +118,35 @@ Various examples:
 
 ``` shell
 # add an empty event
-$ keen events:add --collection cli-tests
+$ keen events:add --collection signups
 
 # use the shorter form of collection
-$ keen events:add -c cli-tests
+$ keen events:add -c signups
 
 # add a blank event to a collection specified in a .env file:
-# KEEN_COLLECTION_NAME=cli-tests
+# KEEN_COLLECTION_NAME=signups
 $ keen events:add
 
 # add an event from JSON using the --data parameter
-$ keen events:add -c cli-tests --data "{ \"username\" : \"dzello\", \"zsh\": 1 }"
+$ keen events:add -c signups --data "{ \"username\" : \"dzello\", \"city\": \"San Francisco\" }"
 
 # add an event from key value pairs
-$ keen events:add -c cli-tests -data "username=dzello&zsh=1" --params
+$ keen events:add -c signups -data "username=dzello&city=SF" --params
 
 # pipe in events as JSON
-$ echo "{ \"username\" : \"dzello\", \"zsh\": 1 }" | keen events:add -c cli-tests
+$ echo "{ \"username\" : \"dzello\", \"city\": \"San Francisco\" }" | keen events:add -c signups
 
-# add events from a file that contains newline delimited json
-# { "apple" : "sauce" }
-# { "banana" : "pudding" }
-# { "cherry" : "pie" }
+# add events from a file that contains newline delimited json:
+# { "username" : "dzello", "city" : "San Francisco" }
+# { "username" : "KarlTheFog", "city" : "San Francisco" }
+# { "username" : "polarvortex", "city" : "Chicago" }
 $ keen events:add --file events.json
 
-# add events from a file in CSV format; the first row should be columns
-# fruit,dish
-# apple,sauce
-# banana,pudding
+# add events from a file in CSV format. the first row must be column names:
+# username, city
+# dzello, San Francisco
+# KarlTheFog, San Francisco
+# polarvortex, Chicago
 $ keen events:add --file events.csv --csv
 ```
 
@@ -178,16 +179,16 @@ Some examples:
 
 ``` shell
 # run a count
-$ keen queries:run --collection cli-tests --analysis-type count
+$ keen queries:run --collection signups --analysis-type count
 1000
 
 # run a count with collection name from .env
-# KEEN_COLLECTION_NAME=cli-tests
+# KEEN_COLLECTION_NAME=signups
 $ keen queries:run --analysis-type count
 1000
 
 # run a count with a group by
-$ keen queries:run --collection cli-tests --analysis-type count --group-by username
+$ keen queries:run --collection signups --analysis-type count --group-by username
 [
   {
     "username": "dzello",
@@ -196,7 +197,7 @@ $ keen queries:run --collection cli-tests --analysis-type count --group-by usern
 ]
 
 # run a query with a timeframe, target property, group by, and interval
-$ keen queries:run --collection cli-tests --analysis-type median --target-property value --group-by cohort --timeframe last_24_hours --interval hourly
+$ keen queries:run --collection signups --analysis-type count_unique --target-property age --group-by source --timeframe last_24_hours --interval hourly
 
 {
   "timeframe": {
