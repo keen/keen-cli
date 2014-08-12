@@ -12,6 +12,10 @@ module KeenCli
         expect(batch_processor.batch_size).to eq(1000)
       end
 
+      it 'sets total size to 0' do
+        expect(batch_processor.total_size).to eq(0)
+      end
+
       it 'sets the collection' do
         expect(batch_processor.collection).to eq('signups')
       end
@@ -41,6 +45,14 @@ module KeenCli
 
       it 'converts a JSON string to a hash' do
         batch_processor.add('{ "apple": "sauce", "banana": "pancakes" }')
+        expect(batch_processor.events.first).to eq({
+          "apple" => "sauce",
+          "banana" => "pancakes"
+        })
+      end
+
+      it 'converts a JSON array to a series of hashes' do
+        batch_processor.add('[{ "apple": "sauce", "banana": "pancakes" }]')
         expect(batch_processor.events.first).to eq({
           "apple" => "sauce",
           "banana" => "pancakes"
@@ -98,6 +110,7 @@ module KeenCli
       it 'adds events to an array up to batch size and increments count' do
         batch_processor.add('{ "apple": "sauce", "banana": "pancakes" }')
         expect(batch_processor.size).to eq(1)
+        expect(batch_processor.total_size).to eq(1)
         expect(batch_processor.events.first).to eq({
           "apple" => "sauce",
           "banana" => "pancakes"
@@ -111,8 +124,10 @@ module KeenCli
         batch_processor.batch_size = 2
         batch_processor.add('{ "apple": "sauce", "banana": "pancakes" }')
         expect(batch_processor.size).to eq(1)
+        expect(batch_processor.total_size).to eq(1)
         batch_processor.add('{ "apple": "sauce", "banana": "pancakes" }')
         expect(batch_processor.size).to eq(0)
+        expect(batch_processor.total_size).to eq(2)
         expect(batch_processor.events).to be_empty
       end
 

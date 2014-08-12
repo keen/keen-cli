@@ -142,6 +142,10 @@ $ echo "{ \"username\" : \"dzello\", \"city\": \"San Francisco\" }" | keen event
 # { "username" : "polarvortex", "city" : "Chicago" }
 $ keen events:add --file events.json
 
+# add events from a file that contains an array of JSON objects
+# [{ "apple" : "sauce" }, { "banana" : "pudding" }, { "cherry" : "pie" }]
+$ keen events:add --file events.json
+
 # add events from a file in CSV format. the first row must be column names:
 # username, city
 # dzello, San Francisco

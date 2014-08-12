@@ -7,7 +7,7 @@ module KeenCli
     def self.events_options
       option :csv
       option :params
-      option :'batch-size'
+      option :'batch-size', type: :numeric
     end
 
     desc 'events:add', 'Add one or more events and print the result'
@@ -30,19 +30,15 @@ module KeenCli
         :params => options[:params],
         :pretty => options[:pretty],
         :silent => options[:silent],
-        :batch_size => options[:'batch-size'])
-
-      total_events = 0
+        :'batch-size' => options[:'batch-size'])
 
       if data = options[:data]
         batch_processor.add(data)
-        total_events += 1
       end
 
       if file = options[:file]
         File.readlines(file).each do |line|
           batch_processor.add(line)
-          total_events += 1
         end
       end
 
@@ -50,18 +46,16 @@ module KeenCli
         ARGV.clear
         ARGF.each_line do |line|
           batch_processor.add(line)
-          total_events += 1
         end
       end
 
       if $stdin.tty? && data.nil? && file.nil?
         batch_processor.add("{}")
-        total_events += 1
       end
 
       batch_processor.flush
 
-      total_events
+      batch_processor.total_size
 
     end
 
