@@ -115,6 +115,12 @@ module KeenCli
 
       end
 
+      it 'deals with quoted csv headers' do
+        batch_processor.csv = true
+        batch_processor.add('"keen.timestamp","apple.date","apple.banana.cherry","apple.banana.walnut"')
+        expect(batch_processor.csv_options[:headers]).to eq(["keen.timestamp", "apple.date", "apple.banana.cherry", "apple.banana.walnut"])
+      end
+
     end
 
     describe 'add' do
