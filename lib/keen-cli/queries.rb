@@ -110,7 +110,6 @@ module KeenCli
       q_options[:target_property] = options[:"target-property"]
       q_options[:interval] = options[:interval]
       q_options[:timeframe] = options[:timeframe]
-      q_options[:filters] = options[:filters]
       q_options[:percentile] = options[:percentile]
       q_options[:latest] = options[:latest]
       q_options[:email] = options[:email]
@@ -121,6 +120,10 @@ module KeenCli
 
       if start_time = options[:start]
         q_options[:timeframe] = { :start => start_time }
+      end
+
+      if filters = options[:filters]
+        q_options[:filters] = JSON.parse(options[:filters])
       end
 
       if end_time = options[:end]
