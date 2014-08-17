@@ -23,9 +23,16 @@ describe KeenCli::CLI do
     end
 
     it 'converts dashes to underscores for certain properties' do
-      url = "https://api.keen.io/3.0/projects/#{project_id}/queries/count?event_collection=minecraft-deaths&group_by=foo&target_property=bar"
+      url = "https://api.keen.io/3.0/projects/#{project_id}/queries/count?event_collection=minecraft-deaths&group_by=%5B%22foo%22%5D&target_property=bar"
       stub_request(:get, url).to_return(:body => { :result => 10 }.to_json)
       _, options = start 'queries:run --analysis-type count --collection minecraft-deaths --group-by foo --target-property bar'
+      expect(_).to eq(10)
+    end
+
+    it 'allows comma-delimited group by fields' do
+      url = "https://api.keen.io/3.0/projects/#{project_id}/queries/count?event_collection=minecraft-deaths&group_by=%5B%22%5C%22foo%22,%22bar%5C%22%22%5D&target_property=bar"
+      stub_request(:get, url).to_return(:body => { :result => 10 }.to_json)
+      _, options = start 'queries:run --analysis-type count --collection minecraft-deaths --group-by "foo,bar" --target-property bar'
       expect(_).to eq(10)
     end
 

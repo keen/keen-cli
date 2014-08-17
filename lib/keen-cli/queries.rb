@@ -106,13 +106,16 @@ module KeenCli
       end
 
       # copy query options in intelligently
-      q_options[:group_by] = options[:"group-by"]
       q_options[:target_property] = options[:"target-property"]
       q_options[:interval] = options[:interval]
       q_options[:timeframe] = options[:timeframe]
       q_options[:percentile] = options[:percentile]
       q_options[:latest] = options[:latest]
       q_options[:email] = options[:email]
+
+      if group_by = options[:"group-by"]
+        q_options[:group_by] = group_by.split(",")
+      end
 
       if property_names = options[:"property-names"]
         q_options[:property_names] = property_names.split(",")
@@ -123,7 +126,7 @@ module KeenCli
       end
 
       if filters = options[:filters]
-        q_options[:filters] = JSON.parse(options[:filters])
+        q_options[:filters] = JSON.parse(filters)
       end
 
       if end_time = options[:end]
