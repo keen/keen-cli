@@ -162,7 +162,7 @@ Parameters:
 
 + `--collection`, `-c`: – The collection to query against. Can also be set on the environment via `KEEN_COLLECTION_NAME`.
 + `--analysis-type`, `-a`: The analysis type for the query. Only needed when not using a query command alias.
-+ `--group-by`, `-g`: A group by for the query.
++ `--group-by`, `-g`: A group by for the query. Multiple fields seperated by comma are supported.
 + `--target-property`, `-y`: A target property for the query.
 + `--timeframe`, `-t`: A relative timeframe, e.g. `last_60_minutes`.
 + `--start`, `-s`: The start time of an absolute timeframe.
