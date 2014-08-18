@@ -36,6 +36,14 @@ describe KeenCli::CLI do
       expect(_).to eq(10)
     end
 
+    it 'parses filters as JSON' do
+      url = "https://api.keen.io/3.0/projects/#{project_id}/queries/count?event_collection=minecraft-deaths&filters=%5B%7B%22property_name%22%3A%22enemy%22%2C%22operator%22%3A%22eq%22%2C%22property_value%22%3A%22creeper%22%7D%5D"
+      stub_request(:get, url).to_return(:body => { :result => 10 }.to_json)
+      filters = '[{"property_name":"enemy","operator":"eq","property_value":"creeper"}]'
+      _, options = start "queries:run --analysis-type count --collection minecraft-deaths --filters #{filters}"
+      expect(_).to eq(10)
+    end
+
     it 'accepts extraction-specific properties' do
       url = "https://api.keen.io/3.0/projects/#{project_id}/queries/extraction?event_collection=minecraft-deaths&property_names=%5B%22foo%22,%22bar%22%5D&latest=1&email=bob@bob.io"
       stub_request(:get, url).to_return(:body => { :result => 10 }.to_json)
