@@ -173,6 +173,7 @@ Parameters:
 + `--property-names`: A comma-separated list of property names. Extractions only.
 + `--latest`: Number of latest events to retrieve. Extractions only.
 + `--email`: Send extraction results via email, asynchronously. Extractions only.
++ `--spark`: Format output for [spark](https://github.com/holman/spark) ▁▂▃▅▇ Interval and timeframe fields required.
 
 Input source parameters:
 + `--data`, `-d`: Specify query parameters as JSON instead of query params.
@@ -266,6 +267,7 @@ Parameters that apply to most commands include:
 
 ### Changelog
 
++ 0.2.0 - Add support for [spark](https://github.com/holman/spark) ▁▂▃▅▇
 + 0.1.9 - Supports JSON-encoded filters and comma-seperated multiple group by
 + 0.1.8 - Inputted lines can also be arrays of JSON objects. `--batch-size` param is now properly recognized.
 + 0.1.7 - Add docs command

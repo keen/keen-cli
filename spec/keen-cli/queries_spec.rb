@@ -104,6 +104,17 @@ describe KeenCli::CLI do
 
   end
 
+  describe 'spark format' do
+
+    it 'should emit interval results as numbers' do
+      url = "https://api.keen.io/3.0/projects/#{project_id}/queries/count?event_collection=minecraft-deaths&timeframe=last_2_minutes&interval=minutely"
+      stub_request(:get, url).to_return(:body => { :result => [{ value: 10 }, { value: 20 }] }.to_json)
+      _ = start 'queries:run --collection minecraft-deaths --analysis-type count --timeframe last_2_minutes --interval minutely --spark'
+      expect(_).to eq("10 20")
+    end
+
+  end
+
   describe "queries:run aliases" do
     KeenCli::CLI::ANALYSIS_TYPES.each do |analysis_type|
       describe analysis_type do

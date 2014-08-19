@@ -18,11 +18,16 @@ module KeenCli
       option :end, :aliases => ['e']
     end
 
+    def self.viz_options
+      option :"spark", :type => :boolean
+    end
+
     desc 'queries:run', 'Run a query and print the result'
     map 'queries:run' => :queries_run
     shared_options
     query_options
     data_options
+    viz_options
     def queries_run(analysis_type=nil)
 
       Utils.process_options!(options)
@@ -35,13 +40,25 @@ module KeenCli
 
       query_options = to_query_options(options)
 
-      Keen.query(analysis_type, collection, query_options).tap do |result|
-        if result.is_a?(Hash) || result.is_a?(Array)
-          Utils.out_json(result, options)
-        else
-          Utils.out(result, options)
+      result = Keen.query(analysis_type, collection, query_options)
+
+      if (options[:spark])
+        raise 'Spark only applies to series queries!' unless options[:interval]
+        numbers = result.map do |object|
+          object['value']
+        end
+        return numbers.join(' ').tap do |numbers_str|
+          Utils.out(numbers_str, options)
         end
       end
+
+      if result.is_a?(Hash) || result.is_a?(Array)
+        Utils.out_json(result, options)
+      else
+        Utils.out(result, options)
+      end
+
+      result
     end
 
     desc 'queries:url', 'Print the URL for a query'
@@ -78,6 +95,7 @@ module KeenCli
       shared_options
       query_options
       data_options
+      viz_options
       self.send(:define_method, method_name) { queries_run(underscored_analysis_type) }
     end
 
