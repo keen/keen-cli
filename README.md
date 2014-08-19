@@ -173,7 +173,7 @@ Parameters:
 + `--property-names`: A comma-separated list of property names. Extractions only.
 + `--latest`: Number of latest events to retrieve. Extractions only.
 + `--email`: Send extraction results via email, asynchronously. Extractions only.
-+ `--spark`: Format output for [spark](https://github.com/holman/spark) ▁▂▃▅▇ Interval and timeframe fields required.
++ `--spark`: Format output for [spark](https://github.com/holman/spark) ▁▂▃▅▇. Interval and timeframe fields required. Set this flag and pipe output to `spark` to visualize output.
 
 Input source parameters:
 + `--data`, `-d`: Specify query parameters as JSON instead of query params.
