@@ -106,11 +106,19 @@ describe KeenCli::CLI do
 
   describe 'spark format' do
 
-    it 'should emit interval results as numbers' do
+    it 'emits interval results as numbers' do
       url = "https://api.keen.io/3.0/projects/#{project_id}/queries/count?event_collection=minecraft-deaths&timeframe=last_2_minutes&interval=minutely"
       stub_request(:get, url).to_return(:body => { :result => [{ value: 10 }, { value: 20 }] }.to_json)
       _ = start 'queries:run --collection minecraft-deaths --analysis-type count --timeframe last_2_minutes --interval minutely --spark'
       expect(_).to eq("10 20")
+    end
+
+    it 'raises an exception if the query does not have an interval' do
+      url = "https://api.keen.io/3.0/projects/#{project_id}/queries/count?event_collection=minecraft-deaths&timeframe=last_2_minutes"
+      stub_request(:get, url).to_return(:body => { :result => [{ value: 10 }, { value: 20 }] }.to_json)
+      expect {
+        _ = start 'queries:run --collection minecraft-deaths --analysis-type count --timeframe last_2_minutes --spark'
+      }.to raise_error /Spark only applies to series/
     end
 
   end
