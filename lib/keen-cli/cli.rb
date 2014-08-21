@@ -8,6 +8,7 @@ require 'keen-cli/utils'
 require 'keen-cli/shared'
 
 require 'keen-cli/projects'
+require 'keen-cli/collections'
 require 'keen-cli/events'
 require 'keen-cli/queries'
 
