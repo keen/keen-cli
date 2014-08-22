@@ -19,6 +19,7 @@ Verify the `keen` command is in your path by running it:
 ``` shell
 Commands:
   keen average               # Alias for queries:run -a average
+  keen collections:delete    # Delete events from a collection
   keen count                 # Alias for queries:run -a count
   keen count-unique          # Alias for queries:run -a count_unique
   keen docs                  # Open the full Keen IO documentation in a browser
@@ -92,6 +93,10 @@ keen-cli has a variety of commands, and most are namespaced for clarity.
 * `projects:workbench` - Open the Project Workbench page in a browser
 * `projects:describe` - Get data about the project. Uses the [project row resource](https://keen.io/docs/api/reference/#project-row-resource).
 * `projects:collections` - Get schema information about the project's collections. Uses the [event resource](https://keen.io/docs/api/reference/#event-resource).
+
+##### Collections
+
+* `collections:delete` - Delete a collection. Takes filters and timeframe as options. Requires confirmation. Pass `--force` to skip, but BE CAREFUL :)
 
 ##### Events
 
@@ -267,6 +272,7 @@ Parameters that apply to most commands include:
 
 ### Changelog
 
++ 0.2.1 - Add `collections:delete` command
 + 0.2.0 - Add support for [spark](https://github.com/holman/spark) ▁▂▃▅▇
 + 0.1.9 - Supports JSON-encoded filters and comma-seperated multiple group by
 + 0.1.8 - Inputted lines can also be arrays of JSON objects. `--batch-size` param is now properly recognized.

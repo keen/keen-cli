@@ -8,6 +8,7 @@ module KeenCli
       option :filters, :aliases => ['-f']
       option :start, :aliases => ['s']
       option :end, :aliases => ['e']
+      option :force, :type => :boolean, :default => false
     end
 
     desc 'collections:delete', 'Delete events from a collection'
@@ -21,6 +22,15 @@ module KeenCli
       Utils.process_options!(options)
 
       collection = Utils.get_collection_name(options)
+
+      unless options[:force]
+        puts "WARNING! This is a delete request. Please re-enter the collection name to confirm."
+        confirmation = $stdin.gets.chomp!
+        unless confirmation == collection
+          Utils.out "Confirmation failed!", options
+          return false
+        end
+      end
 
       q_options = {}
       q_options[:timeframe] = options[:timeframe]
