@@ -289,7 +289,7 @@ Parameters that apply to most commands include:
 
 keen-cli is open source, and contributions are very welcome!
 
-Running the tests with:
+Run the tests with:
 
 ```
 $ bundle exec rake spec
