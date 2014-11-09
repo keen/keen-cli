@@ -1,6 +1,6 @@
 # keen-cli
 
-[![Build Status](https://travis-ci.org/keenlabs/keen-cli.svg?branch=master)](https://travis-ci.org/keenlabs/keen-cli)
+[![Build Status](https://travis-ci.org/keen/keen-cli.svg?branch=master)](https://travis-ci.org/keenlabs/keen-cli)
 
 A command line interface for the Keen IO analytics API.
 
