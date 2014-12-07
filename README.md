@@ -16,7 +16,7 @@ $ gem install keen-cli
 
 Verify the `keen` command is in your path by running it. You should see information about available commands.
 
-``` shell
+```
 $ keen
 Commands:
   keen average               # Alias for queries:run -a average
