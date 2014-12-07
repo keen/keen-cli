@@ -17,6 +17,12 @@ $ gem install keen-cli
 Verify the `keen` command is in your path by running it:
 
 ``` shell
+$ keen
+```
+
+You should see information about available commands.
+
+``` shell
 Commands:
   keen average               # Alias for queries:run -a average
   keen collections:delete    # Delete events from a collection
@@ -41,9 +47,7 @@ Commands:
   keen version               # Print the keen-cli version
 ```
 
-You should see information about available commands.
-
-If `keen` can't be found there might be an issue with your Ruby installation. If you're using [rbenv](https://github.com/sstephenson/rbenv) try running `rbenv rehash` after installation.
+If `keen` can't be found there might be an issue with your Ruby installation. In that case check out [rbenv](https://github.com/sstephenson/rbenv). If you're already using `rbenv` and `keen` still can't be found try running `rbenv rehash` after installation.
 
 ### Environment configuration
 
