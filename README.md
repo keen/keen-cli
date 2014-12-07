@@ -14,15 +14,10 @@ Install the gem:
 $ gem install keen-cli
 ```
 
-Verify the `keen` command is in your path by running it:
+Verify the `keen` command is in your path by running it. You should see information about available commands.
 
 ``` shell
 $ keen
-```
-
-You should see information about available commands.
-
-``` shell
 Commands:
   keen average               # Alias for queries:run -a average
   keen collections:delete    # Delete events from a collection
