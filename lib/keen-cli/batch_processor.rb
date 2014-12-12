@@ -86,6 +86,13 @@ module KeenCli
     private
 
     def add_event_and_flush_if_necessary(event)
+
+      # remove keen.id and keen.created_at
+      if keen = event["keen"]
+        keen.delete("id")
+        keen.delete("created_at")
+      end
+
       self.events.push(event)
       self.size += 1
       self.total_size += 1

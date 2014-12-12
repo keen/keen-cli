@@ -158,6 +158,10 @@ $ keen events:add --file events.json
 $ keen events:add --file events.csv --csv
 ```
 
+Notes:
+
++ `keen.id` and `keen.created_at` properties are automatically removed from events before uploading. The API generates these properties and it will refuse them from clients. The automatic removal makes export & re-import scenarios easier.
+
 ##### Queries
 
 `queries:run` - Runs a query and prints the result

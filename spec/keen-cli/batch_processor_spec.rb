@@ -156,6 +156,16 @@ module KeenCli
         expect(batch_processor.events).to be_empty
       end
 
+      it 'removes the keen.id property' do
+        batch_processor.add('{ "keen": { "id" : "abcde" } }')
+        expect(batch_processor.events.first).to eq({ "keen" => {} })
+      end
+
+      it 'removes the keen.created_at property' do
+        batch_processor.add('{ "keen": { "created_at" : "2014-01-01T00:00:00Z" } }')
+        expect(batch_processor.events.first).to eq({ "keen" => {} })
+      end
+
     end
 
     describe 'flush' do
