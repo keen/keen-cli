@@ -291,19 +291,20 @@ Parameters that apply to most commands include:
 
 ### Changelog
 
-+ 0.2.2 - Return full API JSON response for queries
-+ 0.2.1 - Add `collections:delete` command
++ 0.2.3 - Strip `keen.created_at` and `keen.id` out of events to be added.
++ 0.2.2 - Return full API JSON response for queries.
++ 0.2.1 - Add `collections:delete` command.
 + 0.2.0 - Add support for [spark](https://github.com/holman/spark) ▁▂▃▅▇
-+ 0.1.9 - Supports JSON-encoded filters and comma-seperated multiple group by
++ 0.1.9 - Supports JSON-encoded filters and comma-seperated multiple group by.
 + 0.1.8 - Inputted lines can also be arrays of JSON objects. `--batch-size` param is now properly recognized.
-+ 0.1.7 - Add docs command
++ 0.1.7 - Add docs command.
 + 0.1.6 - Big refactoring to make importing events much cleaner and batching happen automatically. Also adds `queries:url`.
 + 0.1.5 – Support adding events from files with `--file`. Optionally add from CSV with `--csv`.
-+ 0.1.4 – Support absolute timeframes via `--start` and `--end` flags
++ 0.1.4 – Support absolute timeframes via `--start` and `--end` flags.
 + 0.1.3 – Add querying via JSON. Add query aliases. Add support for extraction fields.
-+ 0.1.2 – Change `project:show` to `project:describe`
-+ 0.1.1 – Add `project:collections`
-+ 0.1.0 - Initial version
++ 0.1.2 – Change `project:show` to `project:describe`.
++ 0.1.1 – Add `project:collections`.
++ 0.1.0 - Initial version.
 
 ### Contributing
 
