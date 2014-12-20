@@ -287,6 +287,7 @@ Parameters that apply to most commands include:
 
 ### Changelog
 
++ 0.2.2 - Return full API JSON response for queries
 + 0.2.1 - Add `collections:delete` command
 + 0.2.0 - Add support for [spark](https://github.com/holman/spark) ▁▂▃▅▇
 + 0.1.9 - Supports JSON-encoded filters and comma-seperated multiple group by
