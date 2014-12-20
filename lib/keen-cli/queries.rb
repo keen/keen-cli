@@ -40,11 +40,11 @@ module KeenCli
 
       query_options = to_query_options(options)
 
-      result = Keen.query(analysis_type, collection, query_options)
+      result = Keen.query(analysis_type, collection, query_options, :response => :all_keys)
 
       if (options[:spark])
         raise 'Spark only applies to series queries!' unless options[:interval]
-        numbers = result.map do |object|
+        numbers = result["result"].map do |object|
           object['value']
         end
         return numbers.join(' ').tap do |numbers_str|

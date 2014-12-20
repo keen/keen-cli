@@ -189,54 +189,70 @@ Some examples:
 ``` shell
 # run a count
 $ keen queries:run --collection signups --analysis-type count
-1000
+{
+  "result": 1000
+}
 
 # run a count with collection name from .env
 # KEEN_COLLECTION_NAME=signups
 $ keen queries:run --analysis-type count
-1000
+{
+  "result": 1000
+}
 
 # run a count with a group by
 $ keen queries:run --collection signups --analysis-type count --group-by username
-[
-  {
-    "username": "dzello",
-    "result": 1000
-  }
-]
+{
+  "result": [
+    {
+      "username": "dzello",
+      "result": 1000
+    }
+  ]
+}
 
 # run a query with a timeframe, target property, group by, and interval
 $ keen queries:run --collection signups --analysis-type count_unique --target-property age --group-by source --timeframe last_24_hours --interval hourly
-
 {
-  "timeframe": {
-    "start": "2014-06-27T01:00:00.000Z",
-    "end": "2014-06-27T02:00:00.000Z"
-  },
-  "value": [
-  ...
-  ...
-  ...
+  "result": [
+    {
+      "timeframe": {
+        "start": "2014-06-27T01:00:00.000Z",
+        "end": "2014-06-27T02:00:00.000Z"
+      },
+      "value": [
+        ...
+      ]
+    }
+  }
+}
 
 # run a query with an absolute timeframe
 $ keen queries:run --analysis-type count --start 2014-07-01T00:00:00Z --end 2014-07-31T23:59:59Z
-1000
+{
+  "result": 1000
+}
 
 # run an extraction with specific property names
 $ keen queries:run --collection minecraft-deaths --analysis-type extraction --property-names player,enemy
-[
-  {
-    "player": "dzello",
-    "enemy": "creeper"
-  },
-  {
-    "player": "dkador",
-    "enemy": "creeper"
-  }
-]
+{
+  "result": [
+    {
+      "player": "dzello",
+      "enemy": "creeper"
+    },
+    {
+      "player": "dkador",
+      "enemy": "creeper"
+    }
+  ]
+}
 
 # run a query using JSON to specify parameters
 $ echo "{ \"event_collection\" : \"minecraft-deaths\", \"target_property\": \"level\" }" | keen queries:run -a average
+{
+  "result": 2
+}
 ```
 
 **Query URL Generation**

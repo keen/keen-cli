@@ -12,7 +12,7 @@ Gem::Specification.new do |s|
   s.description = "Record events and run queries from the comfort of your command line"
   s.license     = "MIT"
 
-  s.add_dependency "keen", ">= 0.8.6"
+  s.add_dependency "keen", ">= 0.8.8"
   s.add_dependency "thor"
   s.add_dependency "dotenv"
 
