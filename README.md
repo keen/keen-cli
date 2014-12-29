@@ -127,18 +127,14 @@ $ keen events:add --collection signups
 # use the shorter form of collection
 $ keen events:add -c signups
 
-# add a blank event to a collection specified in a .env file:
-# KEEN_COLLECTION_NAME=signups
-$ keen events:add
+# add a blank event to a collection specified by the environment:
+$ KEEN_COLLECTION_NAME=signups keen events:add
 
 # add an event from JSON using the --data parameter
 $ keen events:add -c signups --data "{ \"username\" : \"dzello\", \"city\": \"San Francisco\" }"
 
-# add an event from key value pairs
+# add an event from key value pairs using the --params parameter
 $ keen events:add -c signups -data "username=dzello&city=SF" --params
-
-# pipe in events as JSON
-$ echo "{ \"username\" : \"dzello\", \"city\": \"San Francisco\" }" | keen events:add -c signups
 
 # add events from a file that contains newline delimited json:
 # { "username" : "dzello", "city" : "San Francisco" }
@@ -156,6 +152,12 @@ $ keen events:add -c signups --file events.json
 # KarlTheFog, San Francisco
 # polarvortex, Chicago
 $ keen events:add -c signups --file events.csv --csv
+
+# pipe in an event as JSON
+$ echo "{ \"username\" : \"dzello\", \"city\": \"San Francisco\" }" | keen events:add -c signups
+
+# pipe in multiple events as newline-delimited JSON
+$ cat events.json | keen events:add -c signups
 ```
 
 Notes:
