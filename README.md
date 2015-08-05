@@ -194,20 +194,20 @@ Some examples:
 
 ``` shell
 # run a count
-$ keen queries:run --collection signups --analysis-type count
+$ keen queries:run --collection signups --analysis-type count --timeframe this_14_days
 {
   "result": 1000
 }
 
 # run a count with collection name from .env
 # KEEN_COLLECTION_NAME=signups
-$ keen queries:run --analysis-type count
+$ keen queries:run --analysis-type count --timeframe this_14_days
 {
   "result": 1000
 }
 
 # run a count with a group by
-$ keen queries:run --collection signups --analysis-type count --group-by username
+$ keen queries:run --collection signups --analysis-type count --group-by username --timeframe this_14_days
 {
   "result": [
     {
@@ -218,7 +218,7 @@ $ keen queries:run --collection signups --analysis-type count --group-by usernam
 }
 
 # run a query with a timeframe, target property, group by, and interval
-$ keen queries:run --collection signups --analysis-type count_unique --target-property age --group-by source --timeframe last_24_hours --interval hourly
+$ keen queries:run --collection signups --analysis-type count_unique --target-property age --group-by source --timeframe previous_24_hours --interval hourly
 {
   "result": [
     {
@@ -240,7 +240,7 @@ $ keen queries:run --analysis-type count --start 2014-07-01T00:00:00Z --end 2014
 }
 
 # run an extraction with specific property names
-$ keen queries:run --collection minecraft-deaths --analysis-type extraction --property-names player,enemy
+$ keen queries:run --collection minecraft-deaths --analysis-type extraction --property-names player,enemy --timeframe this_14_days
 {
   "result": [
     {
@@ -255,7 +255,7 @@ $ keen queries:run --collection minecraft-deaths --analysis-type extraction --pr
 }
 
 # run a query using JSON to specify parameters
-$ echo "{ \"event_collection\" : \"minecraft-deaths\", \"target_property\": \"level\" }" | keen queries:run -a average
+$ echo "{ \"event_collection\" : \"minecraft-deaths\", \"target_property\": \"level\" , \"timeframe\": \"this_14_days\" }" | keen queries:run -a average
 {
   "result": 2
 }
