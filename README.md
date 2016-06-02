@@ -4,6 +4,9 @@
 
 A command line interface for the Keen IO analytics API.
 
+### Community-Supported SDK
+This is an _unofficial_ community supported SDK. If you find any issues or have a request please post an [issue](https://github.com/keen/keen-cli/issues).
+
 ### Installation
 
 keen-cli is built with Ruby, so you'll need a working Ruby 1.9+ environment to use it. You can find Ruby installation instructions [here](https://www.ruby-lang.org/en/installation/).
@@ -270,7 +273,7 @@ Run `keen` with no arguments to see the full list of aliases.
 The same parameters apply as `queries:run`, in addition to one extra.
 
 + `--exclude-api-key`: Prevent the API key query param from being included in the output
- 
+
 **Query Aliases**
 
 For each type of analysis (e.g. count, average, extraction, etc.) there is an alias that can be used
