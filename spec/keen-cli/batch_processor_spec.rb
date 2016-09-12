@@ -166,6 +166,11 @@ module KeenCli
         expect(batch_processor.events.first).to eq({ "keen" => {} })
       end
 
+      it 'reformats the keen.location.coordinates property' do
+        batch_processor.add('{ "keen": { "location": { "coordinates": "[12.12, 34.34]" } } }')
+        expect(batch_processor.events.first).to eq({"keen" => { "location" => { "coordinates" => [12.12, 34.34] } } })
+      end
+
     end
 
     describe 'flush' do

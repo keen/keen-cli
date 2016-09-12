@@ -93,6 +93,17 @@ module KeenCli
         keen.delete("created_at")
       end
 
+      # Set the keen.location.coordinates to a true array
+      if event["keen"] and event["keen"]["location"] and event["keen"]["location"]["coordinates"]
+        coordinates = event["keen"]["location"]["coordinates"]
+
+        if coordinates and coordinates[0] == "[" and coordinates[coordinates.length-1] == "]"
+          event["keen"]["location"]["coordinates"] = coordinates[1..coordinates.length-2].split(',').map(&:to_f)
+        elsif coordinates.class != Array # This should never happen, but just in case..
+          event["keen"].delete("location")
+        end
+      end
+
       self.events.push(event)
       self.size += 1
       self.total_size += 1
