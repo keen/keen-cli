@@ -3,7 +3,7 @@ require 'rspec/core/rake_task'
 
 desc "Run Rspec unit tests"
 RSpec::Core::RakeTask.new(:spec) do |t|
-  t.pattern = "spec/aud/**/*_spec.rb"
+  t.pattern = "spec/keen-cli/**/*_spec.rb"
 end
 
 task :default => :spec
