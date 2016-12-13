@@ -137,7 +137,7 @@ $ KEEN_COLLECTION_NAME=signups keen events:add
 $ keen events:add -c signups --data "{ \"username\" : \"dzello\", \"city\": \"San Francisco\" }"
 
 # add an event from key value pairs using the --params parameter
-$ keen events:add -c signups -data "username=dzello&city=SF" --params
+$ keen events:add -c signups --data "username=dzello&city=SF" --params
 
 # add events from a file that contains newline delimited json:
 # { "username" : "dzello", "city" : "San Francisco" }
